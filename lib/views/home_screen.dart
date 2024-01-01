@@ -3,6 +3,9 @@ import 'package:daily_recipe/constants/colors.dart';
 import 'package:daily_recipe/utils/images.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'components/recipe_card_item.dart';
+import 'components/row_subtitle_texts.dart';
+import 'components/search_bar_widet.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,138 +21,114 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          leading: Padding(
-            padding: const EdgeInsets.all(12.0),
+      appBar: AppBar(
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: ImageIcon(
+            AssetImage(
+              ImagePath.menuIcon,
+            ),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
             child: ImageIcon(
               AssetImage(
-                ImagePath.menuIcon,
+                ImagePath.notificationIcon,
               ),
             ),
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: ImageIcon(
-                AssetImage(
-                  ImagePath.notificationIcon,
-                ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.center,
+
+          children: [
+            Expanded(
+              flex: 1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Bonjour, Emma",
+                    style: TextStyle(color: ligthGrey, fontSize: 12),
+                  ),
+
+                  const Text(
+                    "What would you like to cook today?",
+                    style: TextStyle(fontSize: 20),
+                  ),
+
+                  // SearchBarWidget(),
+                ],
               ),
             ),
-          ],
-        ),
-        body: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(children: [
-              CarouselSlider(
-                carouselController: crslController,
-                options: CarouselOptions(
-                  height: 370.0,
-                  viewportFraction: 0.65,
-                  enlargeCenterPage: true,
-
-                  onPageChanged: (index, reason) {
-                    imgPosition = index;
-                    setState(() {});
-                  },
-                ),
-                items: ImagePath.images.map((i) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                        
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
-                                color: llightGrey,
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 20, left: 20),
-                            child: Column(children: [
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: ImageIcon(
-                                  AssetImage(
-                                    ImagePath.likeIcon,
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                  alignment: Alignment.topRight,
-                                  child: Image.asset(
-                                    i,
-                                  )),
-                               Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Breakfast" , style: TextStyle(
-                                      fontSize: 12,
-                                      color: deepGreen),),
-                                    Text("French Toast with Berries"  , style: TextStyle(fontSize: 18),),
-                                    IconButton(onPressed: (){},
-                                     icon: Icon(Icons.star_rounded ,
-                                    //  fill: ,
-                                      color: ligthGrey,
-                                      size: 32,
-                                      )),
-                                    Text("120 Calories" , style: TextStyle(color: deepOrange , fontSize: 12,),
-          
-                                    ),
-                                     Row(children: [
-                                       ImageIcon(
-                                  AssetImage(
-                                    ImagePath.timeIcon,
-                                  ),),
-                                      Text("15 mins" , style: TextStyle(color: ligthGrey , fontSize: 12,)),
-                                       ImageIcon(
-                                  AssetImage(
-                                    ImagePath.servingIcon,
-                                  ),),
-                                      Text("1 Serving", style: TextStyle(color: ligthGrey , fontSize: 12,))
-                                    ],)
-                                  ],
-                                ),
-                              ),
-                            ]),
-                          ));
+            const RowSubtitleTexts(
+              txt1: 'Today\'s Fresh Recipes',
+              txt2: 'See All',
+            ),
+            Expanded(
+              flex: 2,
+              child: Stack(children: [
+                CarouselSlider(
+                  carouselController: crslController,
+                  options: CarouselOptions(
+                    height: MediaQuery.of(context).size.height / 2,
+                    //    height: 296.0
+                    //  aspectRatio:1.5,
+                    viewportFraction: 0.65,
+                    enlargeCenterPage: true,
+                    onPageChanged: (index, reason) {
+                      imgPosition = index;
+                      setState(() {});
                     },
-                  );
-                }).toList(),
-              ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                heightFactor: 2.5,
-                child: IconButton(
-                  onPressed: () {
-                    crslController.previousPage();
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_ios_new_outlined,
-                    size: 30,
-                    color: orange,
-                    weight: 20,
-                    fill: 1,
+                  ),
+                  items: ImagePath.todayImages.map((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return ReciepeCardItem(
+                          isTodayRecipe: true,
+                          todayImg: i,
+                        );
+                      },
+                    );
+                  }).toList(),
+                ),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  heightFactor: 2.5,
+                  child: IconButton(
+                    onPressed: () {
+                      crslController.previousPage();
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_ios_new_outlined,
+                      size: 30,
+                      color: orange,
+                      weight: 20,
+                      fill: 1,
+                    ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                heightFactor: 2.5,
-                child: IconButton(
-                  onPressed: () {
-                    crslController.nextPage();
-                  },
-                  icon: Icon(Icons.arrow_forward_ios_outlined,
-                      fill: 1, size: 30, color: orange, weight: 20),
-                ),
-              )
-            ]),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  heightFactor: 2.5,
+                  child: IconButton(
+                    onPressed: () {
+                      crslController.nextPage();
+                    },
+                    icon: Icon(Icons.arrow_forward_ios_outlined,
+                        fill: 1, size: 30, color: orange, weight: 20),
+                  ),
+                )
+              ]),
+            ),
             DotsIndicator(
-              dotsCount: ImagePath.images.length,
+              dotsCount: ImagePath.todayImages.length,
               position: imgPosition,
               onTap: (position) async {
                 await crslController.animateToPage(position);
@@ -157,13 +136,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() {});
               },
               decorator: DotsDecorator(
+                activeColor: orange,
                 size: const Size.square(9.0),
                 activeSize: const Size(18.0, 9.0),
                 activeShape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
               ),
-            )
+            ),
+            const RowSubtitleTexts(
+              txt1: 'Recommended',
+              txt2: 'See All',
+            ),
+            Expanded(
+              flex: 2,
+              child: Container(
+                  // color: orange,
+                  child: ListView.builder(
+                itemCount: ImagePath.recommendedImages.length,
+                // physics:ScrollPhysics(parent: ) ,
+                itemBuilder: (context, index) {
+                  return ReciepeCardItem(
+                    isTodayRecipe: false,
+                    recommendedImg:
+                        ImagePath.recommendedImages.elementAt(index),
+                  );
+                },
+              )),
+            ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

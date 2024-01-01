@@ -1,10 +1,6 @@
 import 'package:daily_recipe/constants/colors.dart';
 import 'package:daily_recipe/views/login_screen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../services/preferences.services.dart';
 import '../utils/images.dart';
 import 'components/text_button.dart';
 import 'home_screen.dart';
@@ -53,7 +49,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
+                              builder: (context) => const LoginScreen()));
                     },
                     txt: "Sign In",
                     color: Colors.transparent,

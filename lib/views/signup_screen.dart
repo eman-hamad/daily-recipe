@@ -9,7 +9,7 @@ import 'components/snackbar_widget.dart';
 import 'components/text_button.dart';
 import 'components/text_form_field.dart';
 import 'home_screen.dart';
-import 'signup_screen.dart';
+
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -35,6 +35,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         // resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
         body: Container(
@@ -50,6 +51,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   // flex: 3,
                   child: Center(
                     child: Form(
+                      key:formKey,
                         child: SingleChildScrollView(
                       child: SafeArea(
                         child: Column(
@@ -122,12 +124,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                 } else {
                                   formKey.currentState!.save();
                   
-                                  // await
+                                  await
                                   PreferencesService.prefs?.setBool('isLogin', true);
-                                  PreferencesService.prefs!
-                                      .setString("email", "$emailController");
-                                  PreferencesService.prefs!
-                                      .setString("password", "$passwordController");
+                                  // PreferencesService.prefs!
+                                  //     .setString("email", "$emailController");
+                                  // PreferencesService.prefs!
+                                  //     .setString("password", "$passwordController");
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(

@@ -49,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   // flex: 3,
                   child: Center(
                     child: Form(
+                      key: formKey,
                         child: SingleChildScrollView(
                       child: SafeArea(
                         child: Column(
@@ -107,12 +108,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 } else {
                                   formKey.currentState!.save();
                   
-                                  // await
+                                  await
                                   PreferencesService.prefs?.setBool('isLogin', true);
-                                  PreferencesService.prefs!
-                                      .setString("email", "$emailController");
-                                  PreferencesService.prefs!
-                                      .setString("password", "$passwordController");
+                                  // PreferencesService.prefs!
+                                  //     .setString("email", "$emailController");
+                                  // PreferencesService.prefs!
+                                  //     .setString("password", "$passwordController");
+                                      print(PreferencesService.prefs);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
