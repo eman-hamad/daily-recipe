@@ -9,6 +9,7 @@ void main() async {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: orange),
+        fontFamily: 'Hellix',
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
