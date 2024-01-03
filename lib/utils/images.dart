@@ -9,18 +9,14 @@ abstract class ImagePath {
     "${_path}img1.png",
     "${_path}img2.png",
     "${_path}img1.png",
-    "${_path}img2.png",
-    "${_path}img1.png",
-    "${_path}img2.png",
+  
   ];
 
 static var recommendedImages = [
-    "${_path}img1.png",
-    "${_path}img2.png",
-    "${_path}img1.png",
-    "${_path}img2.png",
-    "${_path}img1.png",
-    "${_path}img2.png",
+    "${_path}muffins.png",
+    "${_path}salmon.png",
+    "${_path}chicken.png",
+    
   ];
 
    static String menuIcon = "${_path}menu.png";

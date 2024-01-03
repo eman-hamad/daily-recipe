@@ -43,7 +43,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   color: orange,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
                   child: TextButtonWidget(
                     press: () {
                       Navigator.push(

@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   const Text(
                     "What would you like to cook today?",
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20 ),
                   ),
 
                   // SearchBarWidget(),
@@ -77,10 +77,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 CarouselSlider(
                   carouselController: crslController,
                   options: CarouselOptions(
-                    height: MediaQuery.of(context).size.height / 2,
+                   // height: MediaQuery.of(context).size.height / 2,
                     //    height: 296.0
                     //  aspectRatio:1.5,
-                    viewportFraction: 0.65,
+                    // viewportFraction: 0.65,
+enlargeFactor: .3,
+                     height: 200,
+                        viewportFraction: .75,
+                        enlargeStrategy: CenterPageEnlargeStrategy.height,
                     enlargeCenterPage: true,
                     onPageChanged: (index, reason) {
                       imgPosition = index;

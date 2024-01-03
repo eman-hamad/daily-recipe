@@ -6,10 +6,12 @@ class TextButtonWidget extends StatelessWidget {
   final String txt;
   final Function() press;
   final Color? color;
-  double? font = 19.0;
+ // double? font = 17.0;
   // double? pad = 18.0;
   TextButtonWidget(
-      {super.key, required this.press, required this.txt, this.font, this.color});
+      {super.key, required this.press, required this.txt,
+       //this.font,
+        this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,9 @@ class TextButtonWidget extends StatelessWidget {
               onPressed: press,
               child: Text(
                 txt,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: font),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600, 
+                  fontSize: 17),
               )),
         );
   }

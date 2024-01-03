@@ -11,7 +11,7 @@ class RowSubtitleTexts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(children: [
       Text(txt1 , 
-      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold ),
+      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       Spacer(),
       Text(txt2 ,   style: TextStyle(fontSize: 14, color: orange ),),
