@@ -1,0 +1,80 @@
+{
+
+    "recipes" : [
+        {   
+           
+            "meal_type" : "breakfast",
+            "type": "today",
+            "title" : " Italian Sausage Pasta ",
+            "description" : "creamy ricotta cheese mixture, savory meat sauce, and mozzarella cheese. BONUS: it’s make-ahead and freezer-friendly!",
+            "image" : "https://thecozycook.com/wp-content/uploads/2022/04/Lasagna-Recipe.jpg",
+            "rating" : "4",
+            "calories" : "80",
+            "prep_time" : "60",
+            "serving" : "1"
+        },
+        {   
+         
+            "meal_type" : "Main Dish",
+            "type": "today",
+            "title" : "Fettuccine Alfredo",
+            "description" : "Fettuccine pasta topped with a homemade rich decadent alfredo sauce",
+            "image" : "https://www.modernhoney.com/wp-content/uploads/2018/08/Fettuccine-Alfredo-Recipe-1-1200x1182.jpg",
+            "rating" : "5",
+            "calories" : "100",
+            "prep_time" : "100",
+            "serving" : "2"
+        },
+
+        {   
+           
+            "meal_type" : "Main Dish",
+            "type": "today",
+            "title" : "Korean Fried Chicken",
+            "description" : "crispy coated buttermilk fried chicken smothered in a spicy Korean-inspired gochujang sauce.",
+            "image" : "https://www.kitchensanctuary.com/wp-content/uploads/2019/08/Korean-Fried-Chicken-tall-FS-New-7374.webp",
+            "rating" : "2",
+            "calories" : "120",
+            "prep_time" : "100",
+            "serving" : "3"
+        },
+
+        {   
+            
+            "meal_type" : "Main Dish",
+            "type": "recommended",
+            "title" : "Greek Moussaka recipe",
+            "description" : "creamy ricotta cheese mixture, savory meat sauce, and mozzarella cheese. BONUS: it’s make-ahead and freezer-friendly!",
+            "image" : "https://www.mygreekdish.com/wp-content/uploads/2013/05/Moussaka-recipe-Traditional-Greek-Moussaka-with-Eggplants-980x649.jpg",
+            "rating" : "3",
+            "calories" : "80",
+            "prep_time" : "90",
+            "serving" : "1"
+        },
+        {   
+           
+            "meal_type" : "Main Dish",
+            "type": "recommended",
+            "title" : "SHEPHERD’S PIE",
+            "description" : "it’s topped with fluffy and creamy mashed potatoes that form a golden crust!",
+            "image" : "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2019/12/Shepherds-Pie-9.jpg",
+            "rating" : "5",
+            "calories" : "130",
+            "prep_time" : "130",
+            "serving" : "3"
+        },
+
+        {   
+            
+            "meal_type" : "breakfast",
+            "type": "recommended",
+            "title" : "Copycat Olive Garden Salad",
+            "description" : "It is crisp, fresh and so addictive.",
+            "image" : "https://therecipecritic.com/wp-content/uploads/2021/05/olivegardensalad1-667x1000.jpg",
+            "rating" : "3",
+            "calories" : "100",
+            "prep_time" : "95",
+            "serving" : "2"
+        }
+    ]
+}
