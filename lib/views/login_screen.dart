@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/colors.dart';
-import '../services/preferences.services.dart';
 import 'components/snackbar_widget.dart';
 import 'components/text_button.dart';
 import 'components/text_form_field.dart';
@@ -176,42 +175,42 @@ class _LoginScreenState extends State<LoginScreen> {
                 //     //height: ,
                 //   ),
                 // ),
-                 if (MediaQuery.of(context).viewInsets.bottom == 0)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: Row(
-                    //          crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Don\'t have an acount?',
-                        style: TextStyle(
-                            color: ligthGrey,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Register.',
+                if (MediaQuery.of(context).viewInsets.bottom == 0)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Row(
+                      //          crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Don\'t have an acount?',
                           style: TextStyle(
+                              color: ligthGrey,
                               fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: orange),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignupScreen()));
-                            },
+                              fontWeight: FontWeight.w500),
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          width: 5,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Register.',
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: orange),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignupScreen()));
+                              },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
               ],
             ),
           ),
