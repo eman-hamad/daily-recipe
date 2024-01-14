@@ -1,16 +1,20 @@
 import 'package:daily_recipe/constants/colors.dart';
-import 'package:daily_recipe/cubit/meal_cubit.dart';
+import 'package:daily_recipe/provider/meal_provider.dart';
 import 'package:daily_recipe/views/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-var pereference = await SharedPreferences.getInstance();
-GetIt.I.registerSingleton<SharedPreferences>(pereference) ;
-  runApp(BlocProvider<MealCubit>(create: ( context) => MealCubit(), child:  const MyApp(),));
+  var pereference = await SharedPreferences.getInstance();
+  GetIt.I.registerSingleton<SharedPreferences>(pereference);
+  runApp(
+    MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_) => MealProvider())],
+        child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {

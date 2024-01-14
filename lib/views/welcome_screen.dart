@@ -3,7 +3,6 @@ import 'package:daily_recipe/views/login_screen.dart';
 import 'package:flutter/material.dart';
 import '../utils/images.dart';
 import 'components/text_button.dart';
-import 'home_screen.dart';
 import 'signup_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {

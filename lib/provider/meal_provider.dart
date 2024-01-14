@@ -1,17 +1,10 @@
 import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../models/meal.model.dart';
-import 'meal_states.dart';
 
-class MealCubit extends Cubit<InitialState> {
-  MealCubit() : super(InitialState(const []));
 
-  // void increment() => emit(UserState(state.counterValue + 1));
-  // void decrement() => emit(UserState(state.counterValue - 1));
-
+class MealProvider extends ChangeNotifier {
   List<Meal> mealsList = [];
 
   Future<void> getMeals() async {
@@ -22,6 +15,6 @@ class MealCubit extends Cubit<InitialState> {
         List<Map<String, dynamic>>.from(jsonDecode(mealData)['recipes']);
 
     mealsList = dataDecoded.map((e) => Meal.fromJson(e)).toList();
-    emit(InitialState(mealsList));
+    notifyListeners();
   }
 }

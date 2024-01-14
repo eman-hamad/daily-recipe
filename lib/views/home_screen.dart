@@ -3,10 +3,8 @@ import 'package:daily_recipe/constants/colors.dart';
 import 'package:daily_recipe/utils/images.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../cubit/meal_states.dart';
-import '../cubit/meal_cubit.dart';
+import 'package:provider/provider.dart';
+import '../provider/meal_provider.dart';
 import 'components/recipe_card_item.dart';
 import 'components/row_subtitle_texts.dart';
 
@@ -27,7 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 getMealsData() async{
-await BlocProvider.of<MealCubit>(context).getMeals();
+await Provider.of<MealProvider>(context, listen: false).getMeals();
+print("00");
+print(Provider.of<MealProvider>(context, listen: false).mealsList);
 }
   @override
   Widget build(BuildContext context) {
@@ -53,10 +53,10 @@ await BlocProvider.of<MealCubit>(context).getMeals();
           ),
         ],
       ),
-      body: BlocConsumer<MealCubit, InitialState>(
-          listener: (_, __) {},
-          builder: (context, state) {
-            return state.mealsList.isEmpty
+      body: Consumer<MealProvider>(
+      
+          builder: (context, value,child) {
+            return value.mealsList.isEmpty
                 ? const Center(child: CircularProgressIndicator())
                 : Padding(
                     padding: const EdgeInsets.only(left: 15.0, right: 15.0),
@@ -109,7 +109,7 @@ await BlocProvider.of<MealCubit>(context).getMeals();
                                   setState(() {});
                                 },
                               ),
-                              items: state.mealsList.map((meal)
+                              items: value.mealsList.map((meal)
                                   // ImagePath.todayImages.map((i)
                                   {
                                 return Builder(
@@ -162,7 +162,7 @@ await BlocProvider.of<MealCubit>(context).getMeals();
                           ]),
                         ),
                         DotsIndicator(
-                          dotsCount: state.mealsList.length,
+                          dotsCount: value.mealsList.length,
                           //ImagePath.todayImages.length,
                           position: imgPosition,
                           onTap: (position) async {
@@ -187,7 +187,7 @@ await BlocProvider.of<MealCubit>(context).getMeals();
                           child: Container(
                               // color: orange,
                               child: ListView.builder(
-                            itemCount: state.mealsList.length,
+                            itemCount: value.mealsList.length,
                             // ImagePath.recommendedImages.length,
                             // physics:ScrollPhysics(parent: ) ,
                             itemBuilder: (context, index) {
@@ -198,8 +198,8 @@ await BlocProvider.of<MealCubit>(context).getMeals();
                                 serving: "7",
                                 // mealsList.elementAt(index).serving!,
                                 recommendedImg:
-                                    state.mealsList.elementAt(index).image!,
-                                title: state.mealsList.elementAt(index).title!,
+                                    value.mealsList.elementAt(index).image!,
+                                title: value.mealsList.elementAt(index).title!,
 
                                 isTodayRecipe: false, prepTime: 'tr',
                                 // recommendedImg:

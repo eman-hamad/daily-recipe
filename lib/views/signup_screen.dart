@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/colors.dart';
-import '../services/preferences.services.dart';
 import 'components/snackbar_widget.dart';
 import 'components/text_button.dart';
 import 'components/text_form_field.dart';
