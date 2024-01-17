@@ -3,8 +3,8 @@ import 'package:daily_recipe/views/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../views/components/snackbar_widget.dart';
-import '../views/home_screen.dart';
+import '../../views/components/snackbar_widget.dart';
+import '../../views/home_screen.dart';
 
 class AppAuthProvider extends ChangeNotifier {
   TextEditingController? emailController;

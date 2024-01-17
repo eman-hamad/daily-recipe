@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:daily_recipe/constants/colors.dart';
-import 'package:daily_recipe/provider/app_auth_provider.dart';
-import 'package:daily_recipe/provider/meal_provider.dart';
+import 'package:daily_recipe/view_model/provider/app_auth_provider.dart';
+import 'package:daily_recipe/view_model/provider/meal_provider.dart';
 import 'package:daily_recipe/views/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

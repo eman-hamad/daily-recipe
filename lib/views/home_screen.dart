@@ -4,7 +4,7 @@ import 'package:daily_recipe/utils/images.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../provider/meal_provider.dart';
+import '../view_model/provider/meal_provider.dart';
 import 'components/recipe_card_item.dart';
 import 'components/row_subtitle_texts.dart';
 

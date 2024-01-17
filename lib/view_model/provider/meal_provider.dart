@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../models/meal.model.dart';
+import '../../models/meal.model.dart';
 
 
 
