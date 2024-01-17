@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../models/meal.model.dart';
 
 
+
 class MealProvider extends ChangeNotifier {
   List<Meal> mealsList = [];
 

@@ -1,11 +1,14 @@
 import 'package:daily_recipe/utils/images.dart';
 import 'package:daily_recipe/views/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/colors.dart';
+import '../provider/app_auth_provider.dart';
 import 'components/snackbar_widget.dart';
 import 'components/text_button.dart';
 import 'components/text_form_field.dart';
@@ -19,18 +22,19 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  late TextEditingController emailController;
-  late TextEditingController nameController;
-  late TextEditingController passwordController;
+  // late TextEditingController emailController;
+  // late TextEditingController nameController;
+  // late TextEditingController passwordController;
 
-  late GlobalKey<FormState> formKey;
-  bool isHidden = false;
+  // late GlobalKey<FormState> formKey;
+  // bool isHidden = false;
   @override
   void initState() {
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    nameController = TextEditingController();
-    formKey = GlobalKey<FormState>();
+    // emailController = TextEditingController();
+    // passwordController = TextEditingController();
+    // nameController = TextEditingController();
+    // formKey = GlobalKey<FormState>();
+    Provider.of<AppAuthProvider>(context, listen: false).initAuthProviderSignUp();
     super.initState();
   }
 
@@ -53,7 +57,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   // flex: 3,
                   child: Center(
                     child: Form(
-                        key: formKey,
+                        key: Provider.of<AppAuthProvider>(context, listen: false).formKey,
                         child: SingleChildScrollView(
                           child: SafeArea(
                             child: Column(
@@ -65,7 +69,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                                 TextFieldWidget(
                                     hint: "Full Name",
-                                    txt: nameController,
+                                    txt: Provider.of<AppAuthProvider>(context, listen: false).nameController!,
                                     widget: Icon(
                                       Icons.person_2_outlined,
                                       color: ligthGrey,
@@ -83,7 +87,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                                 TextFieldWidget(
                                     hint: "Email address ",
-                                    txt: emailController,
+                                    txt: Provider.of<AppAuthProvider>(context, listen: false).emailController!,
                                     widget: Icon(
                                       Icons.email_outlined,
                                       color: ligthGrey,
@@ -102,7 +106,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                                 TextFieldWidget(
                                     hint: "Password ",
-                                    txt: passwordController,
+                                    txt: Provider.of<AppAuthProvider>(context, listen: false).passwordController!,
                                     widget: Icon(
                                       Icons.lock,
                                       color: ligthGrey,
@@ -110,18 +114,19 @@ class _SignupScreenState extends State<SignupScreen> {
                                     suffixWidget: GestureDetector(
                                         onTap: () {
                                           setState(() {
-                                            isHidden = !isHidden;
+                                            Provider.of<AppAuthProvider>(context, listen: false).isHidden =
+                                             ! Provider.of<AppAuthProvider>(context, listen: false).isHidden!;
                                           });
-                                          print(isHidden);
+                                          // print(isHidden);
                                         },
                                         child: Icon(
-                                          isHidden
+                                          Provider.of<AppAuthProvider>(context, listen: false).isHidden!
                                               ? Icons.visibility_outlined
                                               : Icons.visibility_off_outlined,
                                           color: ligthGrey,
                                         )),
                                     type: TextInputType.text,
-                                    obscure: isHidden,
+                                    obscure: Provider.of<AppAuthProvider>(context, listen: false).isHidden!,
                                     formatter: [
                                       FilteringTextInputFormatter.allow(
                                           RegExp('[a-zA-Z || 0-9]')),
@@ -133,28 +138,29 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                                 TextButtonWidget(
                                   press: () async {
-                                    if (!formKey.currentState!.validate()) {
-                                      SnackBarWidget(
-                                              context: context,
-                                              txt: 'Please Fill Empty Fields !',
-                                              color: Colors.red)
-                                          .makeSnackBar();
-                                    } else {
-                                      formKey.currentState!.save();
+                                    Provider.of<AppAuthProvider>(context, listen: false).signUp(context);
+                                    // if (!Provider.of<AppAuthProvider>(context, listen: false).formKey!.currentState!.validate()) {
+                                    //   SnackBarWidget(
+                                    //           context: context,
+                                    //           txt: 'Please Fill Empty Fields !',
+                                    //           color: Colors.red)
+                                    //       .makeSnackBar();
+                                    // } else {
+                                    //   Provider.of<AppAuthProvider>(context, listen: false).formKey!.currentState!.save();
 
-                                      GetIt.I
-                                          .get<SharedPreferences>()
-                                          .setBool('isLogin', true);
-                                      // PreferencesService.prefs!
-                                      //     .setString("email", "$emailController");
-                                      // PreferencesService.prefs!
-                                      //     .setString("password", "$passwordController");
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HomeScreen()));
-                                    }
+                                    //   // GetIt.I
+                                    //   //     .get<SharedPreferences>()
+                                    //   //     .setBool('isLogin', true);
+                                    //   // PreferencesService.prefs!
+                                    //   //     .setString("email", "$emailController");
+                                    //   // PreferencesService.prefs!
+                                    //   //     .setString("password", "$passwordController");
+                                    //   // Navigator.pushReplacement(
+                                    //   //     context,
+                                    //   //     MaterialPageRoute(
+                                    //   //         builder: (context) =>
+                                    //   //             const HomeScreen()));
+                                    //}
                                   },
                                   txt: "Register",
                                   color: orange,

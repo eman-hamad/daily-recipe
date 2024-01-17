@@ -3,8 +3,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/colors.dart';
+import '../provider/app_auth_provider.dart';
 import 'components/snackbar_widget.dart';
 import 'components/text_button.dart';
 import 'components/text_form_field.dart';
@@ -19,17 +21,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController emailController;
-
-  late TextEditingController passwordController;
-
-  late GlobalKey<FormState> formKey;
-  bool isHidden = false;
   @override
   void initState() {
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    formKey = GlobalKey<FormState>();
+    Provider.of<AppAuthProvider>(context, listen: false)
+        .initAuthProviderLogin();
     super.initState();
   }
 
@@ -51,7 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   // flex: 3,
                   child: Center(
                     child: Form(
-                        key: formKey,
+                        key:
+                            Provider.of<AppAuthProvider>(context, listen: false)
+                                .formKey,
                         child: SingleChildScrollView(
                           child: SafeArea(
                             child: Column(
@@ -63,7 +60,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 TextFieldWidget(
                                     hint: "Email address ",
-                                    txt: emailController,
+                                    txt: Provider.of<AppAuthProvider>(context,
+                                            listen: false)
+                                        .emailController!,
                                     widget: Icon(
                                       Icons.email_outlined,
                                       color: ligthGrey,
@@ -81,15 +80,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 TextFieldWidget(
                                     hint: "Password ",
-                                    txt: passwordController,
+                                    txt: Provider.of<AppAuthProvider>(context,
+                                            listen: false)
+                                        .passwordController!,
                                     suffixWidget: GestureDetector(
                                         onTap: () {
                                           setState(() {
-                                            isHidden = !isHidden;
+                                            Provider.of<AppAuthProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .isHidden =
+                                                !Provider.of<AppAuthProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .isHidden!;
                                           });
                                         },
                                         child: Icon(
-                                          isHidden
+                                          Provider.of<AppAuthProvider>(context,
+                                                      listen: false)
+                                                  .isHidden!
                                               ? Icons.visibility_outlined
                                               : Icons.visibility_off_outlined,
                                           color: ligthGrey,
@@ -105,7 +115,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                       color: ligthGrey,
                                     ),
                                     type: TextInputType.text,
-                                    obscure: isHidden,
+                                    obscure: Provider.of<AppAuthProvider>(
+                                            context,
+                                            listen: false)
+                                        .isHidden!,
                                     formatter: [
                                       FilteringTextInputFormatter.allow(
                                           RegExp('[a-zA-Z || 0-9]')),
@@ -133,29 +146,35 @@ class _LoginScreenState extends State<LoginScreen> {
                                 TextButtonWidget(
                                   // font: 19.0,
                                   press: () async {
-                                    if (!formKey.currentState!.validate()) {
-                                      SnackBarWidget(
-                                              context: context,
-                                              txt: 'Please Fill Empty Fields !',
-                                              color: Colors.red)
-                                          .makeSnackBar();
-                                    } else {
-                                      formKey.currentState!.save();
-
-                                      GetIt.I
-                                          .get<SharedPreferences>()
-                                          .setBool('isLogin', true);
-                                      // PreferencesService.prefs!
-                                      //     .setString("email", "$emailController");
-                                      // PreferencesService.prefs!
-                                      //     .setString("password", "$passwordController");
-                                      // print(PreferencesService.prefs);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HomeScreen()));
-                                    }
+                                    // if (!Provider.of<AppAuthProvider>(context,
+                                    //         listen: false)
+                                    //     .formKey!
+                                    //     .currentState!
+                                    //     .validate()) {
+                                    //   SnackBarWidget(
+                                    //           context: context,
+                                    //           txt: 'Please Fill Empty Fields !',
+                                    //           color: Colors.red)
+                                    //       .makeSnackBar();
+                                    // } else {
+                                      // Provider.of<AppAuthProvider>(context, listen: false).formKey!.currentState!.save();
+                                      Provider.of<AppAuthProvider>(context,
+                                              listen: false)
+                                          .login(context);
+                                      // GetIt.I
+                                      //     .get<SharedPreferences>()
+                                      //     .setBool('isLogin', true);
+                                      // // PreferencesService.prefs!
+                                      // //     .setString("email", "$emailController");
+                                      // // PreferencesService.prefs!
+                                      // //     .setString("password", "$passwordController");
+                                      // // print(PreferencesService.prefs);
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             const HomeScreen()));
+                                    
                                   },
                                   txt: "Sign In",
                                   color: orange,

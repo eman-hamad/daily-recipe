@@ -1,4 +1,6 @@
 import 'package:daily_recipe/constants/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,17 +25,20 @@ class _SplashScreenState extends State<SplashScreen> {
   void checkUserStatus() async {
     await Future.delayed(const Duration(seconds: 3));
 
-    if (GetIt.I.get<SharedPreferences>().getBool('isLogin') ?? false) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => const HomeScreen()));
-    } else {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => WelcomeScreen()));
-    }
+    // if (GetIt.I.get<SharedPreferences>().getBool('isLogin') ?? false) {
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user == null) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => const WelcomeScreen()));
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => const HomeScreen()));
+      }
+    });
 
     //PreferencesService.prefs = await SharedPreferences.getInstance();
     //var email = PreferencesService.prefs!.getString("email");
