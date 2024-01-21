@@ -9,12 +9,15 @@ class RowSubtitleTexts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      Text(txt1 , 
-      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-      ),
-      Spacer(),
-      Text(txt2 ,   style: TextStyle(fontSize: 14, color: orange ),),
-    ],);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical:10.0),
+      child: Row(children: [
+        Text(txt1 , 
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        Spacer(),
+        Text(txt2 ,   style: TextStyle(fontSize: 14, color: orange ),),
+      ],),
+    );
   }
 }
