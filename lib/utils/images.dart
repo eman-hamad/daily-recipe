@@ -25,5 +25,19 @@ static var recommendedImages = [
   static String filterIcon = "${_path}filter.png";
    static String servingIcon = "${_path}serving.png";
    static String timeIcon = "${_path}time.png";
+    static String homeIcon = "${_path}home.png";
+ static String settingsIcon = "${_path}settings.png";
+ static String playIcon = "${_path}play.png";
+ static String infoIcon = "${_path}info.png";
+
+
+
+
 }
+
+ 
+
+
+
+
 

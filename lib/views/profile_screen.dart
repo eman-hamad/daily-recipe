@@ -1,17 +1,19 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+// import 'components/profile_components/profile_header.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
+// class ProfileScreen extends StatelessWidget {
+//   const ProfileScreen({super.key});
 
-      body: Column(
-        children: [
-          
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Scaffold(
+
+//       body: Column(
+//         children: [
+//           ProfileHeader()
+//         ],
+//       ),
+//     );
+//   }
+// }

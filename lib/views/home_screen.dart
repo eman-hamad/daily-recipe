@@ -5,6 +5,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../view_model/provider/meal_provider.dart';
+import 'components/drawer_components/drawer_widget.dart';
 import 'components/recipe_card_item.dart';
 import 'components/row_subtitle_texts.dart';
 
@@ -34,16 +35,23 @@ class _HomeScreenState extends State<HomeScreen> {
     await Provider.of<MealProvider>(context, listen: false).getMeals();
   }
 
-  @override
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       appBar: AppBar(
         elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: ImageIcon(
-            AssetImage(
-              ImagePath.menuIcon,
+        leading: InkWell(
+          onTap: () {
+            _key.currentState!.openDrawer();
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: ImageIcon(
+              AssetImage(
+                ImagePath.menuIcon,
+              ),
             ),
           ),
         ),
@@ -55,8 +63,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ImagePath.notificationIcon,
               ),
             ),
-          ),
+          )
         ],
+      ),
+      drawer: Drawer(
+        child:DrawerWidget()
       ),
       body: Expanded(
         child: Padding(
@@ -72,17 +83,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       "Bonjour, Emma",
                       style: TextStyle(color: ligthGrey, fontSize: 12),
                     ),
-        
+
                     const Text(
                       "What would you like to cook today?",
                       style: TextStyle(fontSize: 20),
                     ),
-        
+
                     // SearchBarWidget(),
                   ],
                 ),
               ),
-        
               const RowSubtitleTexts(
                 txt1: 'Today\'s Fresh Recipes',
                 txt2: 'See All',
@@ -122,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       return ReciepeCardItem(
                                         calories: "meal.calories!",
                                         mealType: meal.meal_type!,
-                            
+
                                         serving: "1",
                                         //"meal.serving!",
                                         recommendedImg: meal.image!,
@@ -186,44 +196,55 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                 }),
               ),
-        
               const RowSubtitleTexts(
                 txt1: 'Recommended',
                 txt2: 'See All',
               ),
-                                  Expanded(
-                                      flex: 2,
-                                    child: Consumer<MealProvider>(
-                                                builder: (ctx, adProvider, _) => adProvider.adsList == null
-                                                    ? const CircularProgressIndicator()
-                                                    : (adProvider.adsList?.isEmpty ?? false)
-                                                        ? const Text('No Data Found')
-                                                        :
-                                        Container(
-                                            // color: orange,
-                                            child: ListView.builder(
-                                          itemCount: adProvider.adsList!.length,
-                                          // ImagePath.recommendedImages.length,
-                                          // physics:ScrollPhysics(parent: ) ,
-                                          itemBuilder: (context, index) {
-                                            return ReciepeCardItem(
-                                              calories:
-                                                  adProvider.adsList!.elementAt(index).calories.toString(),
-                                              mealType:  adProvider.adsList!.elementAt(index).meal_type!,
-                                              serving: 
-                                               adProvider.adsList!.elementAt(index).serving.toString(),
-                                              recommendedImg:
-                                                 adProvider.adsList!.elementAt(index).image!,
-                                              title: adProvider.adsList!.elementAt(index).title!,
-                                        
-                                              isTodayRecipe: false, prepTime:  adProvider.adsList!.elementAt(index).prep_time.toString(),
-                                              // recommendedImg:
-                                              // ImagePath.recommendedImages.elementAt(index),
-                                            );
-                                          },
-                                        )),
-                                      ),
-                                  ),
+              Expanded(
+                flex: 2,
+                child: Consumer<MealProvider>(
+                  builder: (ctx, adProvider, _) => adProvider.adsList == null
+                      ? const CircularProgressIndicator()
+                      : (adProvider.adsList?.isEmpty ?? false)
+                          ? const Text('No Data Found')
+                          : Container(
+                              // color: orange,
+                              child: ListView.builder(
+                              itemCount: adProvider.adsList!.length,
+                              // ImagePath.recommendedImages.length,
+                              // physics:ScrollPhysics(parent: ) ,
+                              itemBuilder: (context, index) {
+                                return ReciepeCardItem(
+                                  calories: adProvider.adsList!
+                                      .elementAt(index)
+                                      .calories
+                                      .toString(),
+                                  mealType: adProvider.adsList!
+                                      .elementAt(index)
+                                      .meal_type!,
+                                  serving: adProvider.adsList!
+                                      .elementAt(index)
+                                      .serving
+                                      .toString(),
+                                  recommendedImg: adProvider.adsList!
+                                      .elementAt(index)
+                                      .image!,
+                                  title: adProvider.adsList!
+                                      .elementAt(index)
+                                      .title!,
+
+                                  isTodayRecipe: false,
+                                  prepTime: adProvider.adsList!
+                                      .elementAt(index)
+                                      .prep_time
+                                      .toString(),
+                                  // recommendedImg:
+                                  // ImagePath.recommendedImages.elementAt(index),
+                                );
+                              },
+                            )),
+                ),
+              ),
             ])),
       ),
     );
