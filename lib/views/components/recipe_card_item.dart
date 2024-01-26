@@ -111,8 +111,7 @@ class ReciepeCardItem extends StatelessWidget {
                             ),
                           ),
                            Text(
-                         " (prepTime! / 60000).toString()"
-                          ,
+                         prepTime ,
                               //"15 mins",
                               style: TextStyle(
                                 color: ligthGrey,
@@ -123,7 +122,7 @@ class ReciepeCardItem extends StatelessWidget {
                               ImagePath.servingIcon,
                             ),
                           ),
-                          Text("serving.toString()",
+                          Text(serving.toString(),
                               style: TextStyle(
                                 color: ligthGrey,
                                 fontSize: 12,

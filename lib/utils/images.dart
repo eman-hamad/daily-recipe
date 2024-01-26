@@ -29,6 +29,9 @@ static var recommendedImages = [
  static String settingsIcon = "${_path}settings.png";
  static String playIcon = "${_path}play.png";
  static String infoIcon = "${_path}info.png";
+ static String languageIcon = "${_path}language.png";
+
+
 
 
 

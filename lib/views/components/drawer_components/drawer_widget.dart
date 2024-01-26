@@ -1,9 +1,11 @@
 import 'package:daily_recipe/views/drawer_views/favorites_screen.dart';
+import 'package:daily_recipe/views/drawer_views/recently_viewed_screen.dart';
+import 'package:daily_recipe/views/drawer_views/settings_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
 import '../../../utils/images.dart';
-import '../../ingredietnt_screen.dart';
+import '../../drawer_views/ingredietnt_screen.dart';
 import 'drawer_item._widget.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -75,50 +77,53 @@ class DrawerWidget extends StatelessWidget {
             img: ImagePath.likeIcon,
             press: () {
                Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => FavoritesScreen()));
+                      MaterialPageRoute(builder: (_) => FavouritesPage()));
             },
             txt: "Favorites",
           ),
 
-        //  DrawerItemWidget(
-        //     img: ImagePath.playIcon,
-        //     press: () {
-        //       Navigator.pop(context);
-        //     },
-        //     txt: "Recently Viewed",
-        //   ),
+         DrawerItemWidget(
+            img: ImagePath.playIcon,
+            press: () {
+              Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => RecentlyViewedScreen()));
+            },
+            txt: "Recently Viewed",
+          ),
 
-        //   DrawerItemWidget(
-        //     img: ImagePath.settingsIcon,
-        //     press: () {
-        //       Navigator.pop(context);
-        //     },
-        //     txt: "Settings",
-        //   ),
+          DrawerItemWidget(
+            img: ImagePath.settingsIcon,
+            press: () {
+                Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => SettingsScreen()));
+             // Navigator.pop(context);
+            },
+            txt: "Settings",
+          ),
 
-        //   DrawerItemWidget(
-        //     img: ImagePath.infoIcon,
-        //     press: () {
-        //       Navigator.pop(context);
-        //     },
-        //     txt: "About Us",
-        //   ),
+          DrawerItemWidget(
+            img: ImagePath.infoIcon,
+            press: () {
+              Navigator.pop(context);
+            },
+            txt: "About Us",
+          ),
 
-        //   DrawerItemWidget(
-        //     img: ImagePath.homeIcon,
-        //     press: () {
-        //       Navigator.pop(context);
-        //     },
-        //     txt: "Help",
-        //   ),
+          DrawerItemWidget(
+            img: ImagePath.homeIcon,
+            press: () {
+              Navigator.pop(context);
+            },
+            txt: "Help",
+          ),
 
-        //   DrawerItemWidget(
-        //     img: ImagePath.homeIcon,
-        //     press: () {
-        //       Navigator.pop(context);
-        //     },
-        //     txt: "Sign Out",
-        //   ),
+          DrawerItemWidget(
+            img: ImagePath.homeIcon,
+            press: () {
+              Navigator.pop(context);
+            },
+            txt: "Sign Out",
+          ),
       ],
     );
   }
