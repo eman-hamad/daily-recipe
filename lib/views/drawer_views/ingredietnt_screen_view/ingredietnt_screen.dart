@@ -1,7 +1,8 @@
+import 'package:daily_recipe/view_model/provider/ingredient.provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../view_model/provider/ingredient.provider.dart';
+
 
 class IngredientScreen extends StatefulWidget {
   const IngredientScreen({super.key});

@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'view_model/provider/ingredient.provider.dart';
+import 'view_model/provider/recipes.provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ void main() async {
   //GetIt.I.registerSingleton<SharedPreferences>(pereference);
   runApp(
     MultiProvider(providers: [
-      ChangeNotifierProvider(create: (_) => MealProvider()),
+      ChangeNotifierProvider(create: (_) => RecipesProvider()),
    ChangeNotifierProvider(create: (_) => AppAuthProvider()),
 
        ChangeNotifierProvider(create: (_) => IngredientsProvider()),

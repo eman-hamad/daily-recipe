@@ -12,7 +12,7 @@ import '../view_model/provider/app_auth_provider.dart';
 import 'components/snackbar_widget.dart';
 import 'components/text_button.dart';
 import 'components/text_form_field.dart';
-import 'home_screen.dart';
+import 'home_screen_view/home_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});

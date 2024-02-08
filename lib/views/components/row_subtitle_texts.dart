@@ -1,4 +1,5 @@
 import 'package:daily_recipe/constants/colors.dart';
+import 'package:daily_recipe/views/all_recipes_screen_view/all_recipes_screen.dart';
 import 'package:flutter/material.dart';
 
 class RowSubtitleTexts extends StatelessWidget {
@@ -10,13 +11,21 @@ class RowSubtitleTexts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical:10.0),
-      child: Row(children: [
+      padding: const EdgeInsets.only(top:6.0 , bottom: 6),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
         Text(txt1 , 
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        Spacer(),
-        Text(txt2 ,   style: TextStyle(fontSize: 14, color: orange ),),
+       // Spacer(),
+       InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => const AllRecipesScreen()));
+            },
+          
+          child: Text(txt2 ,   style: TextStyle(fontSize: 14, color: orange ),)),
       ],),
     );
   }

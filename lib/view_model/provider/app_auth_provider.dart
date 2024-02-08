@@ -1,10 +1,12 @@
 import 'package:daily_recipe/constants/colors.dart';
+import 'package:daily_recipe/views/login_screen.dart';
 import 'package:daily_recipe/views/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:overlay_kit/overlay_kit.dart';
 
 import '../../views/components/snackbar_widget.dart';
-import '../../views/home_screen.dart';
+import '../../views/home_screen_view/home_screen.dart';
 
 class AppAuthProvider extends ChangeNotifier {
   TextEditingController? emailController;
@@ -12,6 +14,8 @@ class AppAuthProvider extends ChangeNotifier {
   TextEditingController? passwordController;
   GlobalKey<FormState>? formKey;
   bool? isHidden;
+
+bool isPressed = false;
 
   void initAuthProviderSignUp() {
     emailController = TextEditingController();
@@ -155,5 +159,21 @@ class AppAuthProvider extends ChangeNotifier {
     }
   }
 
+void rebuild(){
+  isPressed=true;
+  notifyListeners();
+}
+
+  void signOut(BuildContext context) async {
+    OverlayLoadingProgress.start();
+    await Future.delayed(const Duration(seconds: 1));
+    await FirebaseAuth.instance.signOut();
+    if (context.mounted) {
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (_) => LoginScreen()), (route) => false);
+    }
+    OverlayLoadingProgress.stop();
+  }
+  
 
 }

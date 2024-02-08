@@ -1,15 +1,10 @@
-import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daily_recipe/constants/colors.dart';
+import 'package:daily_recipe/utils/images.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../models/recipe_model.dart';
-import '../../utils/images.dart';
-import '../../view_model/provider/meal_provider.dart';
-import '../components/recipe_card_item.dart';
-import '../components/search_bar_widet.dart';
+
+
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});

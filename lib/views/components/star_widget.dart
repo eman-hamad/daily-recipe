@@ -11,7 +11,7 @@ class StarWidget extends StatelessWidget {
                                     //  fill: ,
                                       color: orange,
                                      // llightGrey
-                                      size: 20,
+                                      //size: 20,
                                       );
                                    
   }

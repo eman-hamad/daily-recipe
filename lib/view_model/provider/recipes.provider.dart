@@ -73,7 +73,7 @@ class RecipesProvider extends ChangeNotifier {
     try {
       var result = await FirebaseFirestore.instance
           .collection('recipes')
-          .where('isFresh', isEqualTo: true)
+          .where('is_fresh', isEqualTo: true)
           .limit(5)
           .get();
 
@@ -94,7 +94,7 @@ class RecipesProvider extends ChangeNotifier {
     try {
       var result = await FirebaseFirestore.instance
           .collection('recipes')
-          .where('isFresh', isEqualTo: false)
+          .where('is_fresh', isEqualTo: false)
           .limit(5)
           .get();
       if (result.docs.isNotEmpty) {
@@ -142,7 +142,7 @@ class RecipesProvider extends ChangeNotifier {
             .collection('recipes')
             .doc(recipeId)
             .update({
-          "favourite_users_ids":
+          "favorite_users_ids":
               FieldValue.arrayUnion([FirebaseAuth.instance.currentUser?.uid])
         });
       } else {
@@ -150,7 +150,7 @@ class RecipesProvider extends ChangeNotifier {
             .collection('recipes')
             .doc(recipeId)
             .update({
-          "favourite_users_ids":
+          "favorite_users_ids":
               FieldValue.arrayRemove([FirebaseAuth.instance.currentUser?.uid])
         });
       }
