@@ -1,4 +1,5 @@
 import 'package:daily_recipe/constants/colors.dart';
+import 'package:daily_recipe/views/filter_screen_view/filter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -51,9 +52,13 @@ class SearchBarWidget extends StatelessWidget {
           width: 16,
         ),
         GestureDetector(
-          onTap: () {
-            print("filter");
-          },
+       
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) =>const FilterScreen()));
+            },
           child: Container(
               padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 17),
               decoration: BoxDecoration(

@@ -50,15 +50,18 @@ class TextFieldWidget extends StatelessWidget {
         obscureText: obscure,
         decoration: InputDecoration(
           prefixIcon: widget,
+          
 suffix: suffixWidget,
           fillColor: ligthGrey,
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide( width: 1, color:  lightBlack),
+            
           ),
           hintText: hint,
 
           hintStyle: TextStyle(color:  ligthGrey , fontWeight: FontWeight.w400, fontSize: 14),
           enabledBorder: UnderlineInputBorder(
+          
             borderSide: BorderSide(width: 1, color:  ligthGrey),
           ),
         ));

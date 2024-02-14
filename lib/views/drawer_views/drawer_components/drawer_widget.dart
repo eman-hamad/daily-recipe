@@ -6,10 +6,11 @@ import 'package:daily_recipe/views/drawer_views/drawer_components/drawer_header_
 import 'package:daily_recipe/views/drawer_views/drawer_components/drawer_item._widget.dart';
 import 'package:daily_recipe/views/drawer_views/favorites_screen_view/favorites_screen.dart';
 import 'package:daily_recipe/views/drawer_views/ingredietnt_screen_view/ingredietnt_screen.dart';
+import 'package:daily_recipe/views/drawer_views/profile_screen_view/profile_screen.dart';
 import 'package:daily_recipe/views/drawer_views/recently_viewed_screen_view/recently_viewed_screen.dart';
 import 'package:daily_recipe/views/drawer_views/settings_screen_view/settings_screen.dart';
 
-import 'package:daily_recipe/views/filter_screen.dart';
+import 'package:daily_recipe/views/filter_screen_view/filter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +18,11 @@ import 'package:provider/provider.dart';
 class DrawerWidget extends StatelessWidget {
   ZoomDrawerController drawerController;
   Widget minWidget;
+    final String ? name ;
   DrawerWidget(
-      {super.key, required this.drawerController, required this.minWidget});
+      {super.key, required this.drawerController, 
+      this.name,
+      required this.minWidget});
 // bool isPressed = false;
   @override
   Widget build(BuildContext context) {
@@ -40,7 +44,7 @@ class DrawerWidget extends StatelessWidget {
               //   flex: 1,
               //   child:DrawerHeaderWidget()
               // ),
-              const DrawerHeaderWidget(),
+               DrawerHeaderWidget(name: name,),
               const SizedBox(
                 height: 40,
               ),
@@ -118,6 +122,8 @@ class DrawerWidget extends StatelessWidget {
                 },
                 txt: "Ingredients",
               ),
+
+        
               DrawerItemWidget(
                 iconWidget: Icon(
                   Icons.settings,
@@ -131,6 +137,7 @@ class DrawerWidget extends StatelessWidget {
                 },
                 txt: "Settings",
               ),
+
               DrawerItemWidget(
                 iconWidget: Icon(Icons.logout, color: ligthGrey),
                 press: () {

@@ -33,7 +33,7 @@ class DetailedRecipeItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // height: 170,
-      margin: const EdgeInsets.symmetric(vertical: 6),
+      margin: const EdgeInsets.symmetric(vertical: 3),
       width: MediaQuery.of(context).size.width,
       // height: 250,
       //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
@@ -48,6 +48,7 @@ class DetailedRecipeItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+
                 Text(
                   recipe!.meal_type!,
                   // "Breakfast",
@@ -55,6 +56,9 @@ class DetailedRecipeItem extends StatelessWidget {
                       fontSize: 13,
                       color: deepGreen,
                       fontWeight: FontWeight.w400),
+                ),
+                SizedBox(
+                  height: 4,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,15 +118,18 @@ class DetailedRecipeItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
+ const SizedBox(
+                        height: 6,
+                      ),
                       Text(
                         "${recipe!.calories} Calories",
                         // "120 Calories",
                         style: TextStyle(
                             color: deepOrange,
-                            fontSize: 8,
-                            fontWeight: FontWeight.w300),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 6,
@@ -142,7 +149,7 @@ class DetailedRecipeItem extends StatelessWidget {
                         //  onRatingUpdate: (double value) {},
                       ),
                       const SizedBox(
-                        width: 8,
+                        height: 20,
                       ),
                       
                       Row(
@@ -159,7 +166,7 @@ class DetailedRecipeItem extends StatelessWidget {
                             color: Colors.grey,
                           ),
                           const SizedBox(
-                            width: 5,
+                            width: 10,
                           ),
                           Text("${recipe!.prep_time} mins",
                               //"15 mins",
@@ -174,6 +181,9 @@ class DetailedRecipeItem extends StatelessWidget {
                           // ),
                         ],
                       ),
+                       const SizedBox(
+                            height: 20,
+                          ),
                       Row(
                         children: [
                           const Icon(
@@ -182,7 +192,7 @@ class DetailedRecipeItem extends StatelessWidget {
                             color: Colors.grey,
                           ),
                           const SizedBox(
-                            width: 5,
+                            width: 10,
                           ),
                           Text("${recipe!.serving} Serving",
                               style: TextStyle(

@@ -23,6 +23,7 @@ void main() async {
       appId: "1:497409280819:android:8e9eb2f1eb28705cea8c46",
       messagingSenderId: "497409280819",
       projectId: "dailyrecipes-21e6f",
+      storageBucket: "dailyrecipes-21e6f.appspot.com"
     ),
   ):
 

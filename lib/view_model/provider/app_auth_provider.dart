@@ -1,7 +1,9 @@
 import 'package:daily_recipe/constants/colors.dart';
 import 'package:daily_recipe/views/login_screen.dart';
 import 'package:daily_recipe/views/signup_screen.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_kit/overlay_kit.dart';
 
@@ -12,11 +14,13 @@ class AppAuthProvider extends ChangeNotifier {
   TextEditingController? emailController;
   TextEditingController? nameController;
   TextEditingController? passwordController;
+  TextEditingController? editNameController;
   GlobalKey<FormState>? formKey;
+   GlobalKey<FormState>? updateProfileFormKey;
   bool? isHidden;
 
 bool isPressed = false;
-
+String ? img ;
   void initAuthProviderSignUp() {
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -30,6 +34,15 @@ bool isPressed = false;
     formKey = GlobalKey<FormState>();
     isHidden = false;
   }
+  void initAuthProviderEdit() {
+    editNameController = TextEditingController();
+        updateProfileFormKey=GlobalKey<FormState>();
+   
+  }
+   void disposeAuthProviderEdit() {
+    editNameController=null;
+    updateProfileFormKey=null;
+   }
   void disposeAuthProvider() {
     emailController = null;
     passwordController = null;
@@ -44,7 +57,7 @@ bool isPressed = false;
         context, MaterialPageRoute(builder: (context) => const SignupScreen()));
   }
 
-  Future<void> signUp(BuildContext context) async {
+  Future<void> signUp(BuildContext context , String name ) async {
     try {
       if (!formKey!.currentState!.validate()) {
         SnackBarWidget(
@@ -55,13 +68,18 @@ bool isPressed = false;
         final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController!.text,
           password: passwordController!.text,
+
         );
+        print("nameController!.text");
+         print(nameController!.text);
         if (user != null) {
           SnackBarWidget(
               context: context, txt: "signed up Successfuly", color: lightBlue).makeSnackBar();
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              MaterialPageRoute(builder: (context) =>  HomeScreen(
+                name: name
+              )),
               (Route<dynamic> route) => false);
           disposeAuthProvider();
         }
@@ -119,13 +137,13 @@ bool isPressed = false;
       } else {
       final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController!.text,
-        password: passwordController!.text!,
+        password: passwordController!.text,
       );
       if (user != null) {
         SnackBarWidget(context: context, txt: "logged in Successfuly", color:lightBlue).makeSnackBar();
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            MaterialPageRoute(builder: (context) =>  HomeScreen()),
             (Route<dynamic> route) => false);
              disposeAuthProvider();
       }}
@@ -163,6 +181,23 @@ void rebuild(){
   isPressed=true;
   notifyListeners();
 }
+num servingValue = 4;
+num timeValue = 75;
+num caloriesValue = 300;
+void rebuildServing(num value ){
+  servingValue=value;
+  notifyListeners();
+}
+
+void rebuildTime(num value ){
+  timeValue=value;
+  notifyListeners();
+}
+
+void rebuildCalories(num value ){
+  caloriesValue=value;
+  notifyListeners();
+}
 
   void signOut(BuildContext context) async {
     OverlayLoadingProgress.start();
@@ -174,6 +209,46 @@ void rebuild(){
     }
     OverlayLoadingProgress.stop();
   }
-  
+    Future<void> updateImgProfile() async {
+
+                 
+                      OverlayLoadingProgress.start();
+      
+                      var imageResult = await FilePicker.platform
+                          .pickFiles(type: FileType.image, withData: true);
+      
+                      var refresnce = FirebaseStorage.instance
+                          .ref('profile_pictures/${imageResult?.files.first.name}');
+      
+                      if (imageResult?.files.first.bytes != null) {
+                        var uploadResult = await refresnce.putData(
+                            imageResult!.files.first.bytes!,
+                            SettableMetadata(contentType: 'image/png'));
+      
+                        if (uploadResult.state == TaskState.success) {
+      
+                        
+                        img = "${await refresnce.getDownloadURL()}";
+                       notifyListeners();
+
+        OverlayLoadingProgress.stop();
+                          // print(
+                          //     '?????image upload successfully ${await refresnce.getDownloadURL()}');
+                        }}
+    }
+
+
+     void updateUserName(BuildContext context) {
+    if (updateProfileFormKey?.currentState?.validate() ?? false) {
+
+        FirebaseAuth.instance.currentUser!
+            .updateDisplayName(
+           editNameController!.text);
+          
+    SnackBarWidget(context:context,txt:  "Successfully Updated" , color: deepGreen,).makeSnackBar();
+Navigator.pop(context);
+    }
+    notifyListeners();
+  }
 
 }

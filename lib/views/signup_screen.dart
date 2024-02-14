@@ -138,7 +138,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                                 TextButtonWidget(
                                   press: () async {
-                                    Provider.of<AppAuthProvider>(context, listen: false).signUp(context);
+                                    var name = Provider.of<AppAuthProvider>(context, listen: false).nameController!.text;
+                                    Provider.of<AppAuthProvider>(context, listen: false).signUp(context  , name
+                                   
+                                    );
                                     // if (!Provider.of<AppAuthProvider>(context, listen: false).formKey!.currentState!.validate()) {
                                     //   SnackBarWidget(
                                     //           context: context,

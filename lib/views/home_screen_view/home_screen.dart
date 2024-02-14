@@ -16,7 +16,8 @@ import '../components/search_bar_widet.dart';
 import 'home_screen_components/today_recipe_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final String ? name ;
+   HomeScreen( {super.key , this.name});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -46,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget build(BuildContext context) {
     return DrawerWidget(
+      name: widget.name,
       minWidget: Scaffold(
           key: _key,
           appBar: AppBar(
@@ -87,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Bonjour, Emma",
+                      "Bonjour, ${widget.name}",
                       style: TextStyle(color: ligthGrey, fontSize: 12),
                     ),
 
@@ -109,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Consumer<RecipesProvider>(
                         builder: (ctx, adProvider, _) => adProvider.recipesList ==
                                 null
-                            ? const CircularProgressIndicator()
+                            ? const Center(child: CircularProgressIndicator())
                             : (adProvider.recipesList?.isEmpty ?? false)
                                 ? const Text('No Data Found')
                                 :
@@ -235,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Consumer<RecipesProvider>(
                         builder: (ctx, adProvider, _) => adProvider.recipesList ==
                                 null
-                            ? const CircularProgressIndicator()
+                            ? const Center(child: CircularProgressIndicator())
                             : (adProvider.recipesList?.isEmpty ?? false)
                                 ? const Text('No Data Found')
                                 : ListView.builder(
