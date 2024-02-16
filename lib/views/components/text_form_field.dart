@@ -27,9 +27,9 @@ class TextFieldWidget extends StatelessWidget {
     return  TextFormField(
       
         controller: txt,
-        style: TextStyle(color: ligthGrey),
+        style: TextStyle(color: Colors.white),
         //autovalidateMode: AutovalidateMode.onUserInteraction,
-        cursorColor:  ligthGrey,
+        cursorColor:  Colors.white,
         keyboardType: type,
         inputFormatters: formatter,
         validator: (value) {

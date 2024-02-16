@@ -11,8 +11,10 @@ import 'package:overlay_kit/overlay_kit.dart';
 import 'package:provider/provider.dart';
 
 class DrawerHeaderWidget extends StatefulWidget {
-  final String? name;
-  DrawerHeaderWidget({super.key, this.name});
+  // final String? name;
+  const DrawerHeaderWidget({super.key,
+  // this.name
+   });
 
   @override
   State<DrawerHeaderWidget> createState() => _DrawerHeaderWidgetState();
@@ -60,7 +62,7 @@ class _DrawerHeaderWidgetState extends State<DrawerHeaderWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.name!,
+                 " widget.name!",
                   style: TextStyle(fontSize: 17),
                 ),
                 Text(

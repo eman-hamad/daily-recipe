@@ -1,4 +1,6 @@
+import 'package:daily_recipe/utils/global_keys.dart';
 import 'package:daily_recipe/utils/images.dart';
+import 'package:daily_recipe/views/forget_password_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,8 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Center(
                     child: Form(
                         key:
-                            Provider.of<AppAuthProvider>(context, listen: false)
-                                .formKey,
+                            GKeys.loginFormKey,
                         child: SingleChildScrollView(
                           child: SafeArea(
                             child: Column(
@@ -131,7 +132,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Align(
                                   alignment: Alignment.bottomRight,
                                   child: GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+
+                                         Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                   ForgetPasswordScreen()));
+                                      },
                                       child: Text(
                                         "Forgot Password?",
                                         style: TextStyle(

@@ -44,7 +44,9 @@ class DrawerWidget extends StatelessWidget {
               //   flex: 1,
               //   child:DrawerHeaderWidget()
               // ),
-               DrawerHeaderWidget(name: name,),
+               DrawerHeaderWidget(
+                //name: name,
+                ),
               const SizedBox(
                 height: 40,
               ),
@@ -65,9 +67,10 @@ class DrawerWidget extends StatelessWidget {
                     color:Provider.of<AppAuthProvider>(context, listen: false).isPressed? orange: ligthGrey,
                   ),
                   press: () {
-                    //drawerController.toggle?.call();
-                    // drawerController.pop(context);
+                    drawerController.toggle?.call();
+                 // drawerController.pop(context);
                     // study this
+
                   },
                 ),
               ),

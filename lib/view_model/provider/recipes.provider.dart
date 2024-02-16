@@ -12,9 +12,13 @@ class RecipesProvider extends ChangeNotifier {
   
  List<Recipe>? filteredList;
   List<Recipe>? _recipesList;
-
+ var filteredRecipes= <dynamic>{};
   List<Recipe>? get recipesList => _recipesList;
-
+  
+//   set recipesList (_recipesList){
+// recipesList= _recipesList;
+// notifyListeners();
+//  } 
   List<Recipe>? _freshRecipesList;
 
   List<Recipe>? get freshRecipesList => _freshRecipesList;
@@ -55,7 +59,9 @@ class RecipesProvider extends ChangeNotifier {
     }
  
   }
-
+rebuild(){
+  notifyListeners();
+}
 
   Future<void> getSelectedRecipe(String recipeId) async {
     try {

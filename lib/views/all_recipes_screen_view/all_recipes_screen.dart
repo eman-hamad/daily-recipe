@@ -16,9 +16,13 @@ class AllRecipesScreen extends StatefulWidget {
 }
 
 class _AllRecipesScreenState extends State<AllRecipesScreen> {
+
+  late TextEditingController searchController;
+
   @override
   void initState() {
     Provider.of<RecipesProvider>(context, listen: false).getRecipes();
+    searchController = TextEditingController();
     super.initState();
   }
 
@@ -63,14 +67,78 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
                         style: TextStyle(
                             fontSize: 21, fontWeight: FontWeight.w400),
                       ),
-                      const SearchBarWidget(),
+                        Consumer<RecipesProvider>(
+                        builder: (ctx, adProvider, _) => SearchBarWidget(
+                            searchController: searchController,
+                            change: () {
+                              // var _Provider.of<RecipesProvider>(context, listen: false).filteredList = [];
+
+                              Provider.of<RecipesProvider>(context,
+                                      listen: false)
+                                  .filteredRecipes
+                                  .clear();
+                              if (searchController.text.isEmpty) {
+                                //  setState(() {});
+                                return;
+                              }
+
+                              adProvider.recipesList!.forEach((recipe) {
+                                if (recipe.title!.toLowerCase().contains(
+                                        searchController.text.toLowerCase()) ||
+                                    recipe.description!.toLowerCase().contains(
+                                        searchController.text.toLowerCase()) ||
+                                    recipe.meal_type!.toLowerCase().contains(
+                                        searchController.text.toLowerCase()) ||
+                                    recipe.calories
+                                        .toString()
+                                        .contains(searchController.text) ||
+                                    recipe.serving
+                                        .toString()
+                                        .contains(searchController.text) ||
+                                    recipe.rating
+                                        .toString()
+                                        .contains(searchController.text)) {
+                                  adProvider.filteredRecipes.add(recipe);
+                                  // imgPosition = 0;
+                                  adProvider.rebuild();
+// setState(() {
+//  imgPosition = 0;
+// });
+                                  print("adProvider.filteredRecipes");
+                                  print(adProvider
+                                      .filteredRecipes); //  adProvider.recipesList =
+                                  //   Provider.of<RecipesProvider>(context, listen: false).filteredList;
+                                  //  print( "adProvider.recipesList");
+                                  //  var x = adProvider.filteredRecipes;
+                                  //                                   print(adProvider.filteredRecipes);
+                                }
+                                //  print( "adProvider.recipesListttt");
+                                //   var x = adProvider.filteredRecipes;
+                                //                                   print( adProvider.filteredRecipes);
+                                // print("Provider.of<RecipesProvider>(context, listen: false).filteredList");
+                                // print(Provider.of<RecipesProvider>(context, listen: false).filteredList);
+                              });
+
+                              //  setState(() {});
+                            })),
                       Consumer<RecipesProvider>(
                           builder: (ctx, recipesProvider, _) => recipesProvider
                                       .recipesList ==
                                   null
                               ? const CircularProgressIndicator()
-                              : (recipesProvider.recipesList?.isEmpty ?? false)
-                                  ? const Text('No Data Found')
+                              : (recipesProvider.recipesList!.isEmpty 
+                              
+                              ||
+                                        (recipesProvider.filteredRecipes.isEmpty &&
+                                            searchController.text.isNotEmpty)
+                              
+                              
+                              ?? false)
+                                  ? const Center(
+                                    child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: Text('No Data Found'),
+                                  ))
                                   : SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height,
@@ -79,7 +147,15 @@ class _AllRecipesScreenState extends State<AllRecipesScreen> {
                                             GridLayoutEnum.twoElementsInRow,
                                         crossAxisSpacing: 8,
                                         mainAxisSpacing: 8,
-                                        children: recipesProvider.recipesList!
+                                        children: 
+
+                                         searchController.text.isNotEmpty
+                                        ? recipesProvider.filteredRecipes.map((e) => 
+                                         AllRecipesItem(recipe: e))
+                                            .toList()
+                                            :
+
+                                        recipesProvider.recipesList!
                                             .map((e) =>
                                                 AllRecipesItem(recipe: e))
                                             .toList(),

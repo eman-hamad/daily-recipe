@@ -16,8 +16,8 @@ import '../components/search_bar_widet.dart';
 import 'home_screen_components/today_recipe_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String ? name ;
-   HomeScreen( {super.key , this.name});
+  final String? name;
+  HomeScreen({super.key, this.name});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -25,6 +25,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   CarouselController crslController = CarouselController();
+  late TextEditingController searchController;
   int imgPosition = 0;
   late ZoomDrawerController controller;
   @override
@@ -32,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     init();
     //getMealsData();
     controller = ZoomDrawerController();
+    searchController = TextEditingController();
     super.initState();
   }
 
@@ -44,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // }
 
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+  // var Provider.of<RecipesProvider>(context, listen: false).filteredList = [];
 
   Widget build(BuildContext context) {
     return DrawerWidget(
@@ -100,8 +103,60 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     // const SizedBox(
                     //   height: 12,
-                    // ),
-                    const SearchBarWidget(),
+                    Consumer<RecipesProvider>(
+                        builder: (ctx, adProvider, _) => SearchBarWidget(
+                            searchController: searchController,
+                            change: () {
+                              // var _Provider.of<RecipesProvider>(context, listen: false).filteredList = [];
+
+                              Provider.of<RecipesProvider>(context,
+                                      listen: false)
+                                  .filteredRecipes
+                                  .clear();
+                              if (searchController.text.isEmpty) {
+                                //  setState(() {});
+                                return;
+                              }
+
+                              adProvider.recipesList!.forEach((recipe) {
+                                if (recipe.title!.toLowerCase().contains(
+                                        searchController.text.toLowerCase()) ||
+                                    recipe.description!.toLowerCase().contains(
+                                        searchController.text.toLowerCase()) ||
+                                    recipe.meal_type!.toLowerCase().contains(
+                                        searchController.text.toLowerCase()) ||
+                                    recipe.calories
+                                        .toString()
+                                        .contains(searchController.text) ||
+                                    recipe.serving
+                                        .toString()
+                                        .contains(searchController.text) ||
+                                    recipe.rating
+                                        .toString()
+                                        .contains(searchController.text)) {
+                                  adProvider.filteredRecipes.add(recipe);
+                                  imgPosition = 0;
+                                  adProvider.rebuild();
+// setState(() {
+//  imgPosition = 0;
+// });
+                                  print("adProvider.filteredRecipes");
+                                  print(adProvider
+                                      .filteredRecipes); //  adProvider.recipesList =
+                                  //   Provider.of<RecipesProvider>(context, listen: false).filteredList;
+                                  //  print( "adProvider.recipesList");
+                                  //  var x = adProvider.filteredRecipes;
+                                  //                                   print(adProvider.filteredRecipes);
+                                }
+                                //  print( "adProvider.recipesListttt");
+                                //   var x = adProvider.filteredRecipes;
+                                //                                   print( adProvider.filteredRecipes);
+                                // print("Provider.of<RecipesProvider>(context, listen: false).filteredList");
+                                // print(Provider.of<RecipesProvider>(context, listen: false).filteredList);
+                              });
+
+                              //  setState(() {});
+                            })),
 
                     const RowSubtitleTexts(
                       txt1: 'Today\'s Fresh Recipes',
@@ -109,12 +164,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                     Consumer<RecipesProvider>(
-                        builder: (ctx, adProvider, _) => adProvider.recipesList ==
+                        builder: (ctx, adProvider, _) => adProvider
+                                    .recipesList ==
                                 null
                             ? const Center(child: CircularProgressIndicator())
-                            : (adProvider.recipesList?.isEmpty ?? false)
-                                ? const Text('No Data Found')
+                            : (adProvider.recipesList!.isEmpty ||
+                                        (adProvider.filteredRecipes.isEmpty &&
+                                            searchController.text.isNotEmpty) ??
+                                    false)
+                                ? const Center(
+                                    child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: Text('No Data Found'),
+                                  ))
                                 :
+
                                 // adProvider.adsList.elementAt(index).
                                 Column(
                                     crossAxisAlignment:
@@ -141,42 +205,82 @@ class _HomeScreenState extends State<HomeScreen> {
                                               setState(() {});
                                             },
                                           ),
-                                          items: adProvider.recipesList!
-                                              .where((element) =>
-                                                  element.is_fresh == true)
-                                              .map((ad)
-                                                  // ImagePath.todayImages.map((i)
+                                          items: searchController
+                                                  .text.isNotEmpty
+                                              ? adProvider.filteredRecipes
+                                                  .where((element) =>
+                                                      element.is_fresh == true)
+                                                  .map((ad)
+                                                      // ImagePath.todayImages.map((i)
 
-                                                  {
-                                            return Builder(
-                                              builder: (BuildContext context) {
+                                                      {
+                                                  return Builder(
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      print(ad.title);
+                                                      print(ad.rating);
+                                                      return TodayRecipeWidget(
+                                                        // rate:ad.rating!,
+                                                        //   calories:
+                                                        //       ad.calories.toString(),
+                                                        //   mealType: ad.meal_type!
+                                                        //       .toString(),
+                                                        //   serving:
+                                                        //       ad.serving!.toString(),
+                                                        //   img: ad.image!,
+                                                        //   title: ad.title!.toString(),
 
-                                                    print(ad.title);
-                                              print(ad.rating);
-                                                return TodayRecipeWidget(
-                                                  // rate:ad.rating!,
-                                                  //   calories:
-                                                  //       ad.calories.toString(),
-                                                  //   mealType: ad.meal_type!
-                                                  //       .toString(),
-                                                  //   serving:
-                                                  //       ad.serving!.toString(),
-                                                  //   img: ad.image!,
-                                                  //   title: ad.title!.toString(),
-                                               
-                                                  //   prepTime: ad.prep_time
-                                                        // .toString(), 
-                                                        recipe: ad,);
-                                              },
-                                            );
-                                          }).toList(),
+                                                        //   prepTime: ad.prep_time
+                                                        // .toString(),
+                                                        recipe: ad,
+                                                      );
+                                                    },
+                                                  );
+                                                }).toList()
+                                              : adProvider.recipesList!
+                                                  .where((element) =>
+                                                      element.is_fresh == true)
+                                                  .map((ad)
+                                                      // ImagePath.todayImages.map((i)
+
+                                                      {
+                                                  return Builder(
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      print(ad.title);
+                                                      print(ad.rating);
+                                                      return TodayRecipeWidget(
+                                                        // rate:ad.rating!,
+                                                        //   calories:
+                                                        //       ad.calories.toString(),
+                                                        //   mealType: ad.meal_type!
+                                                        //       .toString(),
+                                                        //   serving:
+                                                        //       ad.serving!.toString(),
+                                                        //   img: ad.image!,
+                                                        //   title: ad.title!.toString(),
+
+                                                        //   prepTime: ad.prep_time
+                                                        // .toString(),
+                                                        recipe: ad,
+                                                      );
+                                                    },
+                                                  );
+                                                }).toList(),
                                         ),
                                         Align(
                                           alignment: Alignment.bottomLeft,
                                           heightFactor: 2.5,
                                           child: IconButton(
                                             onPressed: () {
-                                              crslController.previousPage();
+                                              if (adProvider.filteredRecipes
+                                                          .length <
+                                                      3 &&
+                                                  searchController
+                                                      .text.isNotEmpty) {
+                                              } else {
+                                                crslController.previousPage();
+                                              }
                                             },
                                             icon: Icon(
                                               Icons.arrow_back_ios_new_outlined,
@@ -192,7 +296,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                           heightFactor: 2.5,
                                           child: IconButton(
                                             onPressed: () {
-                                              crslController.nextPage();
+                                              if (adProvider.filteredRecipes
+                                                          .length <
+                                                      3 &&
+                                                  searchController
+                                                      .text.isNotEmpty) {
+                                              } else {
+                                                crslController.nextPage();
+                                              }
                                             },
                                             icon: Icon(
                                                 Icons
@@ -204,17 +315,37 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         )
                                       ]),
+
+//                                         (adProvider.filteredRecipes.isEmpty &&
+//                                             searchController.text.isNotEmpty)?
+// Container()
+//                                      :
                                       DotsIndicator(
-                                        dotsCount: adProvider.recipesList!
-                                            .where((element) =>
-                                                element.is_fresh == true)
-                                            .length,
+                                        dotsCount: searchController
+                                                    .text.isNotEmpty &&
+                                                adProvider
+                                                    .filteredRecipes.isNotEmpty
+                                            ? adProvider.filteredRecipes
+                                                .where((element) =>
+                                                    element.is_fresh == true)
+                                                .length
+                                            : adProvider.recipesList!
+                                                .where((element) =>
+                                                    element.is_fresh == true)
+                                                .length,
                                         //ImagePath.todayImages.length,
                                         position: imgPosition,
                                         onTap: (position) async {
-                                          await crslController
-                                              .animateToPage(position);
-                                          imgPosition = position;
+                                          if (adProvider
+                                                      .filteredRecipes.length <
+                                                  3 &&
+                                              searchController
+                                                  .text.isNotEmpty) {
+                                          } else {
+                                            await crslController
+                                                .animateToPage(position);
+                                            imgPosition = position;
+                                          }
                                           setState(() {});
                                         },
                                         decorator: DotsDecorator(
@@ -235,29 +366,46 @@ class _HomeScreenState extends State<HomeScreen> {
                     Expanded(
                       flex: 1,
                       child: Consumer<RecipesProvider>(
-                        builder: (ctx, adProvider, _) => adProvider.recipesList ==
+                        builder: (ctx, adProvider, _) => adProvider
+                                    .recipesList ==
                                 null
                             ? const Center(child: CircularProgressIndicator())
-                            : (adProvider.recipesList?.isEmpty ?? false)
-                                ? const Text('No Data Found')
+                            : (adProvider.recipesList!.isEmpty ||
+                                        (adProvider.filteredRecipes.isEmpty &&
+                                            searchController.text.isNotEmpty) ??
+                                    false)
+                                ? const Center(
+                                    child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: Text('No Data Found'),
+                                  ))
                                 : ListView.builder(
-                                    itemCount: adProvider.recipesList!
-                                        .where((element) =>
-                                            element.is_fresh == false)
-                                        .length,
+                                    itemCount: searchController.text.isNotEmpty
+                                        ? adProvider.filteredRecipes
+                                            .where((element) =>
+                                                element.is_fresh == false)
+                                            .length
+                                        : adProvider.recipesList!
+                                            .where((element) =>
+                                                element.is_fresh == false)
+                                            .length,
                                     // ImagePath.recommendedImages.length,
                                     // physics:ScrollPhysics(parent: ) ,
                                     itemBuilder: (context, index) {
                                       //  print("object");
                                       //  print(adProvider.adsList!.where((element) =>  element.is_fresh == false ).length);
 
-                                      var recipes = adProvider.recipesList!.where(
-                                          (element) =>
-                                              element.is_fresh == false);
-                                          
+                                      var recipes = searchController
+                                              .text.isNotEmpty
+                                          ? adProvider.filteredRecipes.where(
+                                              (element) =>
+                                                  element.is_fresh == false)
+                                          : adProvider.recipesList!.where(
+                                              (element) =>
+                                                  element.is_fresh == false);
 
                                       return RecommendedRecipeWidget(
-                                        recipe:recipes.elementAt(index) ,
+                                        recipe: recipes.elementAt(index),
                                         // rate: recipes.elementAt(index).rating!,
                                         // calories: recipes
                                         //     .elementAt(index)

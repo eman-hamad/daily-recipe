@@ -34,7 +34,6 @@ void main() async {
     MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => RecipesProvider()),
    ChangeNotifierProvider(create: (_) => AppAuthProvider()),
-
        ChangeNotifierProvider(create: (_) => IngredientsProvider()),
     ], child: const MyApp()),
   );

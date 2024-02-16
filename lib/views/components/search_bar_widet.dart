@@ -7,10 +7,13 @@ import '../../utils/icons.dart';
 import '../../utils/images.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({super.key});
+  Function() ?  change;
+   TextEditingController ? searchController;
+   SearchBarWidget({super.key ,   this.change , this.searchController});
 
   @override
   Widget build(BuildContext context) {
+
     return Row(
       // mainAxisAlignment: MainAxisAlignment.center,
       // crossAxisAlignment: CrossAxisAlignment.center,
@@ -24,7 +27,13 @@ class SearchBarWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             child: TextFormField(
+              controller: searchController,
                 cursorColor: ligthGrey,
+                onChanged: (value){
+                  searchController!.text = value;
+                  change!();
+                  
+                },
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   prefixIcon: Icon(
@@ -82,4 +91,21 @@ class SearchBarWidget extends StatelessWidget {
       ],
     );
   }
+
+// var _searchResult = [];
+//   onSearchTextChanged(String text) async {
+//     _searchResult.clear();
+//     if (text.isEmpty) {
+//       setState(() {});
+//       return;
+//     }
+
+//     _userDetails.forEach((userDetail) {
+//       if (userDetail.firstName.contains(text) || userDetail.lastName.contains(text))
+//         _searchResult.add(userDetail);
+//     });
+
+//     setState(() {});
+//   }
+// }
 }

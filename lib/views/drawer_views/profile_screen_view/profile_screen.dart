@@ -1,5 +1,6 @@
 
 import 'package:daily_recipe/constants/colors.dart';
+import 'package:daily_recipe/utils/global_keys.dart';
 import 'package:daily_recipe/utils/images.dart';
 import 'package:daily_recipe/view_model/provider/app_auth_provider.dart';
 import 'package:daily_recipe/views/components/text_button.dart';
@@ -25,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
      Provider.of<AppAuthProvider>(context, listen: false)
-        .initAuthProviderEdit();
+        .initAuthProviderSignUp();
 
     
     super.initState();
@@ -84,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
               ),
              Form(
-               key: Provider.of<AppAuthProvider>(context).updateProfileFormKey,
+               key: GKeys.updateProfileFormKey,
              
                   child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +187,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           RegExp('[a-zA-Z || @ || . || 0-9]')),],
                             hint: "Type user Name To Edit",
                             obscure: false,
-                            txt: Provider.of<AppAuthProvider>(context, listen: false).editNameController!,
+                            txt: Provider.of<AppAuthProvider>(context, listen: false).nameController!,
                             widget:Icon(Icons.person , size: 30, color: orange,) ,
                             type: TextInputType.text,
                         

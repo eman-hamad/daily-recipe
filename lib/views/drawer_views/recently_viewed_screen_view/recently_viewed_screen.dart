@@ -53,7 +53,7 @@ class RecentlyViewedScreen extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
                     ),
-                    const SearchBarWidget(),
+                     SearchBarWidget(),
 
                     // SearchBarWidget(),
                      StreamBuilder(

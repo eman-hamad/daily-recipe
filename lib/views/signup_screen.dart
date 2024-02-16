@@ -1,3 +1,4 @@
+import 'package:daily_recipe/utils/global_keys.dart';
 import 'package:daily_recipe/utils/images.dart';
 import 'package:daily_recipe/views/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -57,7 +58,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   // flex: 3,
                   child: Center(
                     child: Form(
-                        key: Provider.of<AppAuthProvider>(context, listen: false).formKey,
+                        key:GKeys.signupFormKey,
                         child: SingleChildScrollView(
                           child: SafeArea(
                             child: Column(
