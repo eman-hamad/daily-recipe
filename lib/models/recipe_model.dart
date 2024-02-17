@@ -31,8 +31,9 @@ class Recipe {
         ? List<String>.from(data['favorite_users_ids'].map((e) => e.toString()))
         : null;
 
-        recently_viewd_users_ids = data['recently_viewd_users_ids'] != null
-        ? List<String>.from(data['recently_viewd_users_ids'].map((e) => e.toString()))
+    recently_viewd_users_ids = data['recently_viewd_users_ids'] != null
+        ? List<String>.from(
+            data['recently_viewd_users_ids'].map((e) => e.toString()))
         : null;
     rating = data['rating'];
     serving = data['serving'];
@@ -55,7 +56,7 @@ class Recipe {
       "prep_time": prep_time,
       "meal_type": meal_type,
       "favorite_users_ids": favorite_users_ids,
-      "recently_viewd_users_ids" : recently_viewd_users_ids,
+      "recently_viewd_users_ids": recently_viewd_users_ids,
       "is_fresh": is_fresh
     };
   }

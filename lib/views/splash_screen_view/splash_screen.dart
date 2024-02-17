@@ -1,12 +1,9 @@
 import 'package:daily_recipe/constants/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../utils/images.dart';
-import 'home_screen_view/home_screen.dart';
-import 'welcome_screen.dart';
+import '../../utils/images.dart';
+import '../home_screen_view/home_screen.dart';
+import '../welcome_screen_view/welcome_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -33,17 +30,10 @@ class _SplashScreenState extends State<SplashScreen> {
             MaterialPageRoute(
                 builder: (BuildContext context) => const WelcomeScreen()));
       } else {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) =>  HomeScreen()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
       }
     });
-
-    //PreferencesService.prefs = await SharedPreferences.getInstance();
-    //var email = PreferencesService.prefs!.getString("email");
-    //print(prefrenceInstance.getString("email"));
-    // FlutterNativeSplash.remove();
   }
 
   @override

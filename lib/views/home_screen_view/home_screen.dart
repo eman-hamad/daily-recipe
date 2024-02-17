@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:daily_recipe/constants/colors.dart';
 import 'package:daily_recipe/utils/images.dart';
 import 'package:daily_recipe/views/drawer_views/drawer_components/drawer_widget.dart';
-
 import 'package:daily_recipe/views/home_screen_view/home_screen_components/recommended_recipe_widget.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     init();
-    //getMealsData();
+
     controller = ZoomDrawerController();
     searchController = TextEditingController();
     super.initState();
@@ -41,12 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await Provider.of<RecipesProvider>(context, listen: false).getRecipes();
   }
 
-  // getMealsData() async {
-  //   await Provider.of<MealProvider>(context, listen: false).getMeals();
-  // }
-
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-  // var Provider.of<RecipesProvider>(context, listen: false).filteredList = [];
 
   Widget build(BuildContext context) {
     return DrawerWidget(
@@ -58,20 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
             leading: InkWell(
               onTap: () {
                 controller.toggle!();
-                //_key.currentState!.openDrawer();
               },
               child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: SvgPicture.asset(
                     IconPath.menuIcon,
                     height: 32,
-                  )
-                  // ImageIcon(
-                  //   AssetImage(
-                  //     ImagePath.menuIcon,
-                  //   ),
-                  // ),
-                  ),
+                  )),
             ),
             actions: [
               Padding(
@@ -95,26 +82,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       "Bonjour, ${widget.name}",
                       style: TextStyle(color: ligthGrey, fontSize: 12),
                     ),
-
                     const Text(
                       "What would you like to cook today?",
                       style: TextStyle(fontSize: 20),
                     ),
-
-                    // const SizedBox(
-                    //   height: 12,
                     Consumer<RecipesProvider>(
                         builder: (ctx, adProvider, _) => SearchBarWidget(
                             searchController: searchController,
                             change: () {
-                              // var _Provider.of<RecipesProvider>(context, listen: false).filteredList = [];
-
                               Provider.of<RecipesProvider>(context,
                                       listen: false)
                                   .filteredRecipes
                                   .clear();
                               if (searchController.text.isEmpty) {
-                                //  setState(() {});
                                 return;
                               }
 
@@ -140,29 +120,13 @@ class _HomeScreenState extends State<HomeScreen> {
 // setState(() {
 //  imgPosition = 0;
 // });
-                                  print("adProvider.filteredRecipes");
-                                  print(adProvider
-                                      .filteredRecipes); //  adProvider.recipesList =
-                                  //   Provider.of<RecipesProvider>(context, listen: false).filteredList;
-                                  //  print( "adProvider.recipesList");
-                                  //  var x = adProvider.filteredRecipes;
-                                  //                                   print(adProvider.filteredRecipes);
                                 }
-                                //  print( "adProvider.recipesListttt");
-                                //   var x = adProvider.filteredRecipes;
-                                //                                   print( adProvider.filteredRecipes);
-                                // print("Provider.of<RecipesProvider>(context, listen: false).filteredList");
-                                // print(Provider.of<RecipesProvider>(context, listen: false).filteredList);
                               });
-
-                              //  setState(() {});
                             })),
-
                     const RowSubtitleTexts(
                       txt1: 'Today\'s Fresh Recipes',
                       txt2: 'See All',
                     ),
-
                     Consumer<RecipesProvider>(
                         builder: (ctx, adProvider, _) => adProvider
                                     .recipesList ==
@@ -177,10 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     padding: EdgeInsets.symmetric(vertical: 10),
                                     child: Text('No Data Found'),
                                   ))
-                                :
-
-                                // adProvider.adsList.elementAt(index).
-                                Column(
+                                : Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
@@ -188,11 +149,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         CarouselSlider(
                                           carouselController: crslController,
                                           options: CarouselOptions(
-                                            // height: MediaQuery.of(context).size.height / 2,
-                                            //    height: 296.0
-                                            //  aspectRatio:1.5,
-                                            // viewportFraction: 0.65,
-                                            // enlargeFactor: .3,
                                             height: 220,
                                             autoPlay: true,
                                             viewportFraction: 0.65,
@@ -210,28 +166,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ? adProvider.filteredRecipes
                                                   .where((element) =>
                                                       element.is_fresh == true)
-                                                  .map((ad)
-                                                      // ImagePath.todayImages.map((i)
-
-                                                      {
+                                                  .map((ad) {
                                                   return Builder(
                                                     builder:
                                                         (BuildContext context) {
-                                                      print(ad.title);
-                                                      print(ad.rating);
                                                       return TodayRecipeWidget(
-                                                        // rate:ad.rating!,
-                                                        //   calories:
-                                                        //       ad.calories.toString(),
-                                                        //   mealType: ad.meal_type!
-                                                        //       .toString(),
-                                                        //   serving:
-                                                        //       ad.serving!.toString(),
-                                                        //   img: ad.image!,
-                                                        //   title: ad.title!.toString(),
-
-                                                        //   prepTime: ad.prep_time
-                                                        // .toString(),
                                                         recipe: ad,
                                                       );
                                                     },
@@ -240,28 +179,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               : adProvider.recipesList!
                                                   .where((element) =>
                                                       element.is_fresh == true)
-                                                  .map((ad)
-                                                      // ImagePath.todayImages.map((i)
-
-                                                      {
+                                                  .map((ad) {
                                                   return Builder(
                                                     builder:
                                                         (BuildContext context) {
-                                                      print(ad.title);
-                                                      print(ad.rating);
                                                       return TodayRecipeWidget(
-                                                        // rate:ad.rating!,
-                                                        //   calories:
-                                                        //       ad.calories.toString(),
-                                                        //   mealType: ad.meal_type!
-                                                        //       .toString(),
-                                                        //   serving:
-                                                        //       ad.serving!.toString(),
-                                                        //   img: ad.image!,
-                                                        //   title: ad.title!.toString(),
-
-                                                        //   prepTime: ad.prep_time
-                                                        // .toString(),
                                                         recipe: ad,
                                                       );
                                                     },
@@ -333,7 +255,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 .where((element) =>
                                                     element.is_fresh == true)
                                                 .length,
-                                        //ImagePath.todayImages.length,
                                         position: imgPosition,
                                         onTap: (position) async {
                                           if (adProvider
@@ -389,12 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             .where((element) =>
                                                 element.is_fresh == false)
                                             .length,
-                                    // ImagePath.recommendedImages.length,
-                                    // physics:ScrollPhysics(parent: ) ,
                                     itemBuilder: (context, index) {
-                                      //  print("object");
-                                      //  print(adProvider.adsList!.where((element) =>  element.is_fresh == false ).length);
-
                                       var recipes = searchController
                                               .text.isNotEmpty
                                           ? adProvider.filteredRecipes.where(
@@ -406,26 +322,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                       return RecommendedRecipeWidget(
                                         recipe: recipes.elementAt(index),
-                                        // rate: recipes.elementAt(index).rating!,
-                                        // calories: recipes
-                                        //     .elementAt(index)
-                                        //     .calories
-                                        //     .toString(),
-                                        // mealType:
-                                        //     recipes.elementAt(index).meal_type!,
-                                        // serving: recipes
-                                        //     .elementAt(index)
-                                        //     .serving
-                                        //     .toString(),
-                                        // img: recipes.elementAt(index).image!,
-                                        // title: recipes.elementAt(index).title!,
-
-                                        // prepTime: recipes
-                                        //     .elementAt(index)
-                                        //     .prep_time
-                                        //     .toString(),
-                                        // // recommendedImg:
-                                        // ImagePath.recommendedImages.elementAt(index),
                                       );
 
                                       // :

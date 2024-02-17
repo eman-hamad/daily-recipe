@@ -1,13 +1,12 @@
 import 'package:daily_recipe/constants/colors.dart';
 import 'package:daily_recipe/utils/global_keys.dart';
-import 'package:daily_recipe/views/login_screen.dart';
-import 'package:daily_recipe/views/signup_screen.dart';
+import 'package:daily_recipe/views/login_screen_view/login_screen.dart';
+import 'package:daily_recipe/views/signup_screen_view/signup_screen.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_kit/overlay_kit.dart';
-
 import '../../views/components/snackbar_widget.dart';
 import '../../views/home_screen_view/home_screen.dart';
 
@@ -17,9 +16,7 @@ class AppAuthProvider extends ChangeNotifier {
   TextEditingController? passwordController;
   TextEditingController? editNameController;
   TextEditingController? forgetEmailController;
-  // GlobalKey<FormState>? formKey;
-  // GlobalKey<FormState>? updateProfileFormKey;
-  // GlobalKey<FormState>? forgetEmailFormKey;
+
   bool? isHidden;
 
   bool isPressed = false;
@@ -28,42 +25,37 @@ class AppAuthProvider extends ChangeNotifier {
     emailController = TextEditingController();
     passwordController = TextEditingController();
     nameController = TextEditingController();
-    // formKey = GlobalKey<FormState>();
+
     isHidden = false;
   }
 
   void initAuthProviderLogin() {
     emailController = TextEditingController();
     passwordController = TextEditingController();
-    // formKey = GlobalKey<FormState>();
+
     isHidden = false;
   }
 
   void initAuthProviderEdit() {
     editNameController = TextEditingController();
-    // updateProfileFormKey = GlobalKey<FormState>();
   }
 
   void initAuthProviderForget() {
     forgetEmailController = TextEditingController();
-    // forgetEmailFormKey = GlobalKey<FormState>();
   }
 
   void disposeAuthProviderForget() {
     forgetEmailController = null;
-    // forgetEmailFormKey = null;
   }
 
   void disposeAuthProviderEdit() {
     editNameController = null;
-    // updateProfileFormKey = null;
   }
 
   void disposeAuthProviderlogin() {
     emailController = null;
     passwordController = null;
 
-    // formKey = null;
     isHidden = false;
   }
 
@@ -71,7 +63,7 @@ class AppAuthProvider extends ChangeNotifier {
     emailController = null;
     passwordController = null;
     nameController = null;
-    // formKey = null;
+
     isHidden = false;
   }
 
@@ -357,8 +349,6 @@ class AppAuthProvider extends ChangeNotifier {
         notifyListeners();
 
         OverlayLoadingProgress.stop();
-        // print(
-        //     '?????image upload successfully ${await refresnce.getDownloadURL()}');
       }
     }
   }

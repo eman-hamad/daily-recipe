@@ -1,18 +1,10 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:daily_recipe/constants/colors.dart';
 import 'package:daily_recipe/utils/images.dart';
-import 'package:daily_recipe/views/drawer_views/drawer_components/drawer_widget.dart';
-
 import 'package:daily_recipe/views/home_screen_view/home_screen_components/recommended_recipe_widget.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
-import '../../utils/icons.dart';
 import '../../view_model/provider/recipes.provider.dart';
 import '../components/row_subtitle_texts.dart';
-import '../components/search_bar_widet.dart';
 
 class FilteredScreen extends StatefulWidget {
   String type;
@@ -42,7 +34,6 @@ class _FilteredScreenState extends State<FilteredScreen> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          
           actions: [
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -64,63 +55,51 @@ class _FilteredScreenState extends State<FilteredScreen> {
                 txt1: 'Filtered Recipes',
                 txt2: 'See All',
               ),
-
-              Text("Meal Type:  ${widget.type}"  , style: TextStyle(color: deepOrange , fontWeight: FontWeight.bold), ),
-              Text("Serving:  ${widget.serv}", style: TextStyle(color: deepOrange, fontWeight: FontWeight.bold),),
-              Text("Preperation Time:  ${widget.time}",  style: TextStyle(color: deepOrange, fontWeight: FontWeight.bold),),
+              Text(
+                "Meal Type:  ${widget.type}",
+                style:
+                    TextStyle(color: deepOrange, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "Serving:  ${widget.serv}",
+                style:
+                    TextStyle(color: deepOrange, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "Preperation Time:  ${widget.time}",
+                style:
+                    TextStyle(color: deepOrange, fontWeight: FontWeight.bold),
+              ),
               Consumer<RecipesProvider>(
-                builder: (ctx, adProvider, _) =>
-                    adProvider.filteredList == null
-                        ? const Center(child: CircularProgressIndicator())
-                        : (adProvider.filteredList?.isEmpty ?? false)
-                            ? const Center(child: Text('No Data Found'))
-                            : Expanded(
-                              child: Padding(
-                                   padding: const EdgeInsets.only(top:10),
-                                child: ListView.builder(
-                                    itemCount: adProvider.filteredList!.length,
-                                    // .map((element) =>
-                                    //     element.is_fresh == false)
-                                    // .length,
-                                    // ImagePath.recommendedImages.length,
-                                    // physics:ScrollPhysics(parent: ) ,
-                                    itemBuilder: (context, index) {
-                                      //  print("object");
-                                      //  print(adProvider.adsList!.where((element) =>  element.is_fresh == false ).length);
-                                              
-                                      // var recipes = adProvider.x!.map(
-                                      //     (element) );
-                                              
-                                      return RecommendedRecipeWidget(
-                                        recipe: adProvider.filteredList!
-                                            .elementAt(index),
-                                        // rate: recipes.elementAt(index).rating!,
-                                        // calories: recipes
-                                        //     .elementAt(index)
-                                        //     .calories
-                                        //     .toString(),
-                                        // mealType:
-                                        //     recipes.elementAt(index).meal_type!,
-                                        // serving: recipes
-                                        //     .elementAt(index)
-                                        //     .serving
-                                        //     .toString(),
-                                        // img: recipes.elementAt(index).image!,
-                                        // title: recipes.elementAt(index).title!,
-                                              
-                                        // prepTime: recipes
-                                        //     .elementAt(index)
-                                        //     .prep_time
-                                        //     .toString(),
-                                        // // recommendedImg:
-                                        // ImagePath.recommendedImages.elementAt(index),
-                                      );
-                                              
-                                      // :
-                                    },
-                                  ),
+                builder: (ctx, adProvider, _) => adProvider.filteredList == null
+                    ? const Center(child: CircularProgressIndicator())
+                    : (adProvider.filteredList?.isEmpty ?? false)
+                        ? const Center(child: Text('No Data Found'))
+                        : Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: ListView.builder(
+                                itemCount: adProvider.filteredList!.length,
+                                // .map((element) =>
+                                //     element.is_fresh == false)
+                                // .length,
+                                // ImagePath.recommendedImages.length,
+                                // physics:ScrollPhysics(parent: ) ,
+                                itemBuilder: (context, index) {
+                                  //  print("object");
+                                  //  print(adProvider.adsList!.where((element) =>  element.is_fresh == false ).length);
+
+                                  // var recipes = adProvider.x!.map(
+                                  //     (element) );
+
+                                  return RecommendedRecipeWidget(
+                                    recipe: adProvider.filteredList!
+                                        .elementAt(index),
+                                  );
+                                },
                               ),
                             ),
+                          ),
               ),
             ]),
           ),

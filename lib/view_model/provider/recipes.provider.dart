@@ -2,23 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_kit/overlay_kit.dart';
-
-
 import '../../models/recipe_model.dart';
 import '../../utils/toast_message_status.dart';
 import '../../views/components/toast_message.widget.dart';
 
 class RecipesProvider extends ChangeNotifier {
-  
- List<Recipe>? filteredList;
+  List<Recipe>? filteredList;
   List<Recipe>? _recipesList;
- var filteredRecipes= <dynamic>{};
+  var filteredRecipes = <dynamic>{};
   List<Recipe>? get recipesList => _recipesList;
-  
-//   set recipesList (_recipesList){
-// recipesList= _recipesList;
-// notifyListeners();
-//  } 
+
   List<Recipe>? _freshRecipesList;
 
   List<Recipe>? get freshRecipesList => _freshRecipesList;
@@ -29,26 +22,22 @@ class RecipesProvider extends ChangeNotifier {
 
   Recipe? openedRecipe;
 
-  Future <void> getFilteredResult(
-    String type, int serv , int time
-  ) async {
-     try {
-    var ref = await FirebaseFirestore.instance.collection('recipes').
+  Future<void> getFilteredResult(String type, int serv, int time) async {
+    try {
+      var ref = await FirebaseFirestore.instance
+          .collection('recipes')
+          .where('meal_type', isEqualTo: type)
+          .where('serving', isEqualTo: serv)
+          .where('prep_time', isEqualTo: time);
 
+      var result = await ref.get();
 
-      where('meal_type', isEqualTo: type)
-      .where('serving', isEqualTo: serv).
-      where('prep_time', isEqualTo :time);
-   
-
-    var result = await ref.get();
-
-    if (result.docs.isNotEmpty) {
+      if (result.docs.isNotEmpty) {
         filteredList = List<Recipe>.from(
             result.docs.map((doc) => Recipe.fromJson(doc.data(), doc.id)));
 
-            print("filteredList");
-            print(filteredList);
+        // print("filteredList");
+        // print(filteredList);
       } else {
         filteredList = [];
       }
@@ -57,11 +46,11 @@ class RecipesProvider extends ChangeNotifier {
       filteredList = [];
       notifyListeners();
     }
- 
   }
-rebuild(){
-  notifyListeners();
-}
+
+  rebuild() {
+    notifyListeners();
+  }
 
   Future<void> getSelectedRecipe(String recipeId) async {
     try {

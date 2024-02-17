@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../constants/colors.dart';
 
 class StarWidget extends StatelessWidget {
@@ -7,12 +6,9 @@ class StarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return       Icon(Icons.star_rounded ,
-                                    //  fill: ,
-                                      color: orange,
-                                     // llightGrey
-                                      //size: 20,
-                                      );
-                                   
+    return Icon(
+      Icons.star_rounded,
+      color: orange,
+    );
   }
 }

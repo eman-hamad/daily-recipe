@@ -40,25 +40,69 @@ class SettingsScreen extends StatelessWidget {
         ),
         body: Padding(
             padding: EdgeInsets.only(left: 15.0, right: 15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 25, top: 12),
-                  child: Text("Settings" , style: TextStyle(
-                    fontSize: 21,
-                   fontWeight: FontWeight.w400
-                  ),),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 25, top: 12),
+                child: Text(
+                  "Settings",
+                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
                 ),
-                Container(
+              ),
+              Container(
+                  decoration: BoxDecoration(
+                      color: llightGrey, borderRadius: BorderRadius.circular(15)
+                      // shape: Border(borderRadius: BorderRadius.circular(25))
+
+                      ),
+
+                  // width: MediaQuery.of(context).size.width,
+                  // margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                  // decoration: BoxDecoration(
+                  //     color: llightGrey,
+                  //     borderRadius: BorderRadius.circular(25)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 22, vertical: 22),
+                    child: Row(children: [
+                      ImageIcon(
+                        AssetImage(
+                          ImagePath.languageIcon,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 7,
+                      ),
+                      const Text(
+                        "Language",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w400),
+                      ),
+                      const Spacer(),
+                      Text("English",
+                          style: TextStyle(
+                            color: orange,
+                            fontSize: 15.5,
+                            fontWeight: FontWeight.w400,
+                          ))
+                    ]),
+                  )),
+              SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => ProfileScreen()));
+                },
+                child: Container(
                     decoration: BoxDecoration(
-                      color: llightGrey,
-                     borderRadius: BorderRadius.circular(15)
-                           // shape: Border(borderRadius: BorderRadius.circular(25))
-                            
-                    ),
-                   
-                
+                        color: llightGrey,
+                        borderRadius: BorderRadius.circular(15)
+                        // shape: Border(borderRadius: BorderRadius.circular(25))
+
+                        ),
+
                     // width: MediaQuery.of(context).size.width,
                     // margin: const EdgeInsets.symmetric(horizontal: 5.0),
                     // decoration: BoxDecoration(
@@ -66,78 +110,26 @@ class SettingsScreen extends StatelessWidget {
                     //     borderRadius: BorderRadius.circular(25)),
                     child: Padding(
                       padding:
-                          const EdgeInsets.symmetric(horizontal: 22, vertical: 22),
-                      child: Row(children: [
-                        ImageIcon(
-                          AssetImage(
-                            ImagePath.languageIcon,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 7,
-                        ),
-                        const Text(
-                          "Language",
-                          style:
-                              TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                        ),
-                        const Spacer(),
-                        Text("English",
-                            style: TextStyle(
-                              color: orange,
-                              fontSize: 15.5,
-                              fontWeight: FontWeight.w400,
-                            ))
-                      ]),
-                    )),
-
-
-                 SizedBox(
-                  height: 10,
-                 ),
-
-               InkWell(
-                onTap: (){
-                         Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => ProfileScreen()));
-                      },
-                 child: Container(
-                      decoration: BoxDecoration(
-                        color: llightGrey,
-                       borderRadius: BorderRadius.circular(15)
-                             // shape: Border(borderRadius: BorderRadius.circular(25))
-                              
-                      ),
-                     
-                  
-                      // width: MediaQuery.of(context).size.width,
-                      // margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                      // decoration: BoxDecoration(
-                      //     color: llightGrey,
-                      //     borderRadius: BorderRadius.circular(25)),
-                      child:  Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 22, vertical: 22),
-                        child: Row(
+                          EdgeInsets.symmetric(horizontal: 22, vertical: 22),
+                      child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          
                           children: [
-                         Icon(Icons.person, size: 30, color: ligthGrey,),
-                         
-                           SizedBox(
-                            width: 7,
-                          ),
-                          const Text(
-                            "Edit Profile",
-                            style:
-                                TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                          ),
-                          
-                        ]),
-                      )
-                      ),
-               ),
-              ]
-            )));
+                            Icon(
+                              Icons.person,
+                              size: 30,
+                              color: ligthGrey,
+                            ),
+                            SizedBox(
+                              width: 7,
+                            ),
+                            const Text(
+                              "Edit Profile",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                            ),
+                          ]),
+                    )),
+              ),
+            ])));
   }
 }

@@ -1,32 +1,18 @@
-import 'package:daily_recipe/utils/images.dart';
 import 'package:daily_recipe/views/components/star_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
-
 import '../../../constants/colors.dart';
 import '../../../models/recipe_model.dart';
 import '../../../view_model/provider/recipes.provider.dart';
 
 class RecentlyViewedItem extends StatelessWidget {
-//   String? img;
-//   String mealType;
-//   String title;
-//   String calories;
-//   String serving;
-// num ? rate;
-//   String prepTime;
+
   final Recipe? recipe;
   RecentlyViewedItem(
       {super.key,
-      // required this.mealType,
-      // required this.title,
-      // required this.calories,
-      // required this.serving,
-      // required this.prepTime,
-      // required this.img,
-      // required this.rate,
+    
       required this.recipe});
 
   @override
@@ -37,11 +23,7 @@ class RecentlyViewedItem extends StatelessWidget {
           height: 110,
           margin: EdgeInsets.symmetric(vertical: 6),
           width: MediaQuery.of(context).size.width,
-          // height: 250,
-          //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-
-          // width: MediaQuery.of(context).size.width,
-          // margin: const EdgeInsets.symmetric(horizontal: 5.0),
+          
           decoration: BoxDecoration(
               color: llightGrey, borderRadius: BorderRadius.circular(18)),
           child: Padding(
@@ -57,11 +39,8 @@ class RecentlyViewedItem extends StatelessWidget {
                       width: 70,
                       fit: BoxFit.contain,
                     ),
-                    // Image.asset(
-                    //   recommendedImg!,
-                    //   height: 70,
-                    //   fit: BoxFit.cover,
-                    // ),
+                  
+                   
                     const SizedBox(
                       width: 12,
                     ),
@@ -70,7 +49,7 @@ class RecentlyViewedItem extends StatelessWidget {
                       children: [
                         Text(
                           recipe!.meal_type!,
-                          // "Breakfast",
+                      
                           style: TextStyle(
                               fontSize: 13,
                               color: deepGreen,
@@ -82,10 +61,7 @@ class RecentlyViewedItem extends StatelessWidget {
                                 ? recipe!.title!.substring(0, 23) + "..."
                                 : recipe!.title!,
 
-                            // de"French Toast with Berries",
-                            // maxLines: 1,
-                            //overflow: TextOverflow.ellipsis,
-                            // "French Toast with Berries",
+                          
                             style: const TextStyle(
                                 decorationStyle: TextDecorationStyle.dotted,
                                 // overflow: TextOverflow.ellipsis,
@@ -93,9 +69,7 @@ class RecentlyViewedItem extends StatelessWidget {
                                 fontWeight: FontWeight.w400),
                           ),
                         ),
-                        //  const SizedBox(
-                        //   height: 3,
-                        // ),
+                       
                         Row(children: [
                           RatingBarIndicator(
                             // ignoreGestures: true,
@@ -116,27 +90,21 @@ class RecentlyViewedItem extends StatelessWidget {
                           ),
                           Text(
                             "${recipe!.calories} Calories",
-                            // "120 Calories",
+                           
                             style: TextStyle(
                                 color: deepOrange,
-                                fontSize: 8,
-                                fontWeight: FontWeight.w300),
+                                fontSize: 9,
+                                  fontWeight: FontWeight.w400),
                           ),
                         ]),
-                        // const SizedBox(
-                        //   height: 6,
-                        // ),
+                        
 
                         const SizedBox(
                           height: 6,
                         ),
                         Row(
                           children: [
-                            // ImageIcon(
-                            //   AssetImage(
-                            //     ImagePath.timeIcon,
-                            //   ),
-                            //),
+                           
 
                             const Icon(
                               Icons.access_time,
@@ -147,16 +115,12 @@ class RecentlyViewedItem extends StatelessWidget {
                               width: 5,
                             ),
                             Text("${recipe!.prep_time} mins",
-                                //"15 mins",
+                              
                                 style: TextStyle(
                                   color: ligthGrey,
                                   fontSize: 12,
                                 )),
-                            // ImageIcon(
-                            //   AssetImage(
-                            //     ImagePath.servingIcon,
-                            //   ),
-                            // ),
+                            
                             const SizedBox(
                               width: 32,
                             ),
@@ -180,40 +144,22 @@ class RecentlyViewedItem extends StatelessWidget {
                     const Spacer(),
 
                     GestureDetector(
-                      onTap: () {
-                        Provider.of<RecipesProvider>(context, listen: false)
-                            .removeRecipeToUserRecentlyViewed(
-                          recipe!.docId!);
-                           !(recipe?.recently_viewd_users_ids?.contains(
-                                   FirebaseAuth.instance.currentUser?.uid) ??
-                               false);
+                        onTap: () {
+                          Provider.of<RecipesProvider>(context, listen: false)
+                              .removeRecipeToUserRecentlyViewed(recipe!.docId!);
+                          !(recipe?.recently_viewd_users_ids?.contains(
+                                  FirebaseAuth.instance.currentUser?.uid) ??
+                              false);
+                        },
+                        child:
+                          
+                            Icon(
+                          Icons.remove_circle_outlined,
+                          size: 30,
+                          color: orange,
+                        )
                        
-                      },
-                      child: 
-                      // (recipe?.recently_viewd_users_ids?.contains(
-                      //             FirebaseAuth.instance.currentUser?.uid) ??
-                      //         false
-                         // ? 
-                           Icon(
-                              Icons.remove_circle_outlined,
-                              size: 30,
-                              color: Colors.red,
-                            )
-                          // : Icon(
-                          //     Icons.remove_circle_outlined,
-                          //     size: 30,
-                          //     color: ligthGrey,
-                          //   )
-                          ),
-                      // GestureDetector(
-                      //   onTap: () {},
-                      //   child: Icon(
-                      //     Icons.favorite_outline,
-                      //     color: ligthGrey,
-                      //     // size: 30,
-                      //   ),
-                      // ),
-                      //]),
+                        ),
                     
                   ])),
         ));

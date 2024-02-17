@@ -15,16 +15,9 @@ class MealTypeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: tap,
-      //  () {
-      //     selectedUserValue['type'] = "$txt";
-      //     tap;
-      //   },
-
       child: Chip(
         side: BorderSide(
-            color:
-            
-             selectedUserValue['type'] == "$txt" ? orange : simiGrey),
+            color: selectedUserValue['type'] == "$txt" ? orange : simiGrey),
         label: Text(
           txt,
           style: TextStyle(

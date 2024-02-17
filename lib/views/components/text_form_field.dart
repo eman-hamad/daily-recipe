@@ -1,46 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../../constants/colors.dart';
 
 class TextFieldWidget extends StatelessWidget {
-
   final String hint;
   final TextEditingController txt;
   final Widget widget;
-  Widget ? suffixWidget;
+  Widget? suffixWidget;
   final TextInputType type;
   final bool obscure;
   final List<TextInputFormatter> formatter;
 
-   TextFieldWidget(
+  TextFieldWidget(
       {super.key,
       required this.formatter,
       required this.hint,
       required this.obscure,
       required this.txt,
       required this.type,
-      required this.widget , this.suffixWidget});
+      required this.widget,
+      this.suffixWidget});
 
   @override
   Widget build(BuildContext context) {
-    return  TextFormField(
-      
+    return TextFormField(
         controller: txt,
-        style: TextStyle(color: Colors.white),
-        //autovalidateMode: AutovalidateMode.onUserInteraction,
-        cursorColor:  Colors.white,
+        style: const TextStyle(color: Colors.white),
+        cursorColor: Colors.white,
         keyboardType: type,
         inputFormatters: formatter,
         validator: (value) {
-          //   if (isEmail == true  && (value!.isEmpty|| !value.contains("@") || !value.contains(".")))
-          //   {
-
-          //                   return "Please Fill correctly";
-
-          // }
-
-          if ( value!.trim().isEmpty) {
+          if (value!.trim().isEmpty) {
             return "Please Fill correctly";
           } else if (value.length < 2) {
             return "must be greater than two characters";
@@ -50,24 +40,17 @@ class TextFieldWidget extends StatelessWidget {
         obscureText: obscure,
         decoration: InputDecoration(
           prefixIcon: widget,
-          
-suffix: suffixWidget,
+          suffix: suffixWidget,
           fillColor: ligthGrey,
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide( width: 1, color:  lightBlack),
-            
+            borderSide: BorderSide(width: 1, color: lightBlack),
           ),
           hintText: hint,
-
-          hintStyle: TextStyle(color:  ligthGrey , fontWeight: FontWeight.w400, fontSize: 14),
+          hintStyle: TextStyle(
+              color: ligthGrey, fontWeight: FontWeight.w400, fontSize: 14),
           enabledBorder: UnderlineInputBorder(
-          
-            borderSide: BorderSide(width: 1, color:  ligthGrey),
+            borderSide: BorderSide(width: 1, color: ligthGrey),
           ),
         ));
-
   }
 }
-
-
-    

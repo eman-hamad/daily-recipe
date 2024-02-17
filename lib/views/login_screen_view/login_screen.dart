@@ -1,19 +1,15 @@
 import 'package:daily_recipe/utils/global_keys.dart';
 import 'package:daily_recipe/utils/images.dart';
-import 'package:daily_recipe/views/forget_password_screen.dart';
+import 'package:daily_recipe/views/forget_password_view/forget_password_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../constants/colors.dart';
-import '../view_model/provider/app_auth_provider.dart';
-import 'components/snackbar_widget.dart';
-import 'components/text_button.dart';
-import 'components/text_form_field.dart';
-import 'home_screen_view/home_screen.dart';
-import 'signup_screen.dart';
+import '../../constants/colors.dart';
+import '../../view_model/provider/app_auth_provider.dart';
+import '../components/text_button.dart';
+import '../components/text_form_field.dart';
+import '../signup_screen_view/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -42,14 +38,12 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
-              // mainAxisAlignment: M,
               children: [
                 Expanded(
                   // flex: 3,
                   child: Center(
                     child: Form(
-                        key:
-                            GKeys.loginFormKey,
+                        key: GKeys.loginFormKey,
                         child: SingleChildScrollView(
                           child: SafeArea(
                             child: Column(
@@ -105,12 +99,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                               : Icons.visibility_off_outlined,
                                           color: ligthGrey,
                                         )),
-                                    // IconButton(
-                                    //   onPressed: (){
-
-                                    //   },
-                                    //   icon:
-                                    //   Icon(Icons.remove_red_eye_outlined , color: ligthGrey,)),
                                     widget: Icon(
                                       Icons.lock,
                                       color: ligthGrey,
@@ -123,9 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     formatter: [
                                       FilteringTextInputFormatter.allow(
                                           RegExp('[a-zA-Z || 0-9]')),
-                                    ]
-                                    //false
-                                    ),
+                                    ]),
                                 const SizedBox(
                                   height: 10,
                                 ),
@@ -133,12 +119,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   alignment: Alignment.bottomRight,
                                   child: GestureDetector(
                                       onTap: () {
-
-                                         Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                   ForgetPasswordScreen()));
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ForgetPasswordScreen()));
                                       },
                                       child: Text(
                                         "Forgot Password?",
@@ -154,59 +139,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                 TextButtonWidget(
                                   // font: 19.0,
                                   press: () async {
-                                    // if (!Provider.of<AppAuthProvider>(context,
-                                    //         listen: false)
-                                    //     .formKey!
-                                    //     .currentState!
-                                    //     .validate()) {
-                                    //   SnackBarWidget(
-                                    //           context: context,
-                                    //           txt: 'Please Fill Empty Fields !',
-                                    //           color: Colors.red)
-                                    //       .makeSnackBar();
-                                    // } else {
-                                      // Provider.of<AppAuthProvider>(context, listen: false).formKey!.currentState!.save();
-                                      Provider.of<AppAuthProvider>(context,
-                                              listen: false)
-                                          .login(context);
-                                      // GetIt.I
-                                      //     .get<SharedPreferences>()
-                                      //     .setBool('isLogin', true);
-                                      // // PreferencesService.prefs!
-                                      // //     .setString("email", "$emailController");
-                                      // // PreferencesService.prefs!
-                                      // //     .setString("password", "$passwordController");
-                                      // // print(PreferencesService.prefs);
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             const HomeScreen()));
-                                    
+                                    Provider.of<AppAuthProvider>(context,
+                                            listen: false)
+                                        .login(context);
                                   },
                                   txt: "Sign In",
                                   color: orange,
                                 ),
-
-                                // Spacer(),
                               ],
                             ),
                           ),
                         )),
                   ),
                 ),
-
-                // Expanded(
-
-                //   child: SizedBox(
-                //     //height: ,
-                //   ),
-                // ),
                 if (MediaQuery.of(context).viewInsets.bottom == 0)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: Row(
-                      //          crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
@@ -216,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontSize: 16,
                               fontWeight: FontWeight.w500),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         RichText(

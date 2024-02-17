@@ -6,8 +6,6 @@ import 'package:daily_recipe/views/filter_screen_view/filter_screen_components/s
 import 'package:daily_recipe/views/filtered_screen_view/filtered_screen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-
 import '../components/text_button.dart';
 
 class FilterScreen extends StatefulWidget {
@@ -125,7 +123,7 @@ class _FilterScreenState extends State<FilterScreen> {
               ),
             ),
             SliderWidget(
-              min: 15,
+              min: 5,
               max: 135,
               change: 30,
               isTime: true,
@@ -147,11 +145,7 @@ class _FilterScreenState extends State<FilterScreen> {
             Padding(
               padding: const EdgeInsets.only(bottom: 15),
               child: TextButtonWidget(
-                press: ()
-                 {
-                  print("mealType");
-                  print(mealType);
-                  
+                press: () {
                   mealType.isNotEmpty
                       ? Navigator.push(
                           context,
@@ -165,11 +159,13 @@ class _FilterScreenState extends State<FilterScreen> {
                                             listen: false)
                                         .timeValue
                                         .toInt(),
-                                    type: mealType!,
+                                    type: mealType,
                                   )))
-                      :  
-                       SnackBarWidget(
-              context: context, txt: "Please determine Meal Type",color: Colors.red).makeSnackBar();
+                      : SnackBarWidget(
+                              context: context,
+                              txt: "Please determine Meal Type",
+                              color: Colors.red)
+                          .makeSnackBar();
                 },
                 txt: "Apply",
                 color: orange,

@@ -1,9 +1,9 @@
 import 'package:daily_recipe/constants/colors.dart';
-import 'package:daily_recipe/views/login_screen.dart';
+import 'package:daily_recipe/views/login_screen_view/login_screen.dart';
 import 'package:flutter/material.dart';
-import '../utils/images.dart';
-import 'components/text_button.dart';
-import 'signup_screen.dart';
+import '../../utils/images.dart';
+import '../components/text_button.dart';
+import '../signup_screen_view/signup_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
